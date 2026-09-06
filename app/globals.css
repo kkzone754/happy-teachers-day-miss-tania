@@ -1,185 +1,252 @@
 @import "tailwindcss";
 
-:root {
-  --background: #080604;
-  --foreground: #fff8e8;
-
-  --gold: #d9a64c;
-  --gold-soft: #f0d49a;
-  --cream: #fff8e8;
-
-  --font-display: "Cormorant Garamond", serif;
-  --font-sans: "Manrope", sans-serif;
+/* ==========================================================================
+   DESIGN TOKENS
+   Cinematic Editorial + Tactile Digital — foundation for the whole site.
+   Every scene (Beginning, Confidence, Guidance, Aladdin, Song, Chai, Final)
+   pulls from this single source instead of inventing its own values.
+   ========================================================================== */
+@theme {
+  --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 }
 
-* {
-  box-sizing: border-box;
+@layer base {
+  :root {
+    /* Core cinematic palette */
+    --bg-obsidian: #070605;
+    --bg-warm-black: #100c08;
+    --bg-deep-brown: #1b120b;
+    --text-cream: #f4ebdd;
+    --text-ivory: #fff8e8;
+    --accent-gold: #c89a52;
+    --accent-amber: #e4b96a;
+    --border-tactile: rgba(200, 154, 82, 0.15);
+
+    /* Scene-specific accents (Section 16 — palette per chapter) */
+    --scene-aladdin: #5a1420;      /* theatre burgundy */
+    --scene-aladdin-glow: #8a2432;
+    --scene-tea: #7a4a1e;          /* warm amber/brown */
+    --scene-tea-glow: #e4b96a;
+    --scene-final: #f4ebdd;        /* cream + gold, quiet close */
+
+    /* Fluid type scale — clamp() so every scene shares one rhythm */
+    --step-label: clamp(0.65rem, 0.6rem + 0.2vw, 0.75rem);
+    --step-body: clamp(0.95rem, 0.9rem + 0.3vw, 1.125rem);
+    --step-subhead: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+    --step-display: clamp(2.75rem, 1.8rem + 5vw, 6rem);
+    --step-hero: clamp(3.5rem, 1.5rem + 9vw, 11.5rem);
+    --step-watermark: clamp(6rem, 2rem + 22vw, 18rem);
+
+    /* Motion rhythm — one easing curve used everywhere for cohesion */
+    --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+    --dur-fast: 0.4s;
+    --dur-base: 0.9s;
+    --dur-slow: 1.6s;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-obsidian);
+    color: var(--text-cream);
+    overflow-x: hidden;
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Selection must be a pseudo-element, not a CSS property */
+  ::selection {
+    background-color: var(--accent-gold);
+    color: var(--bg-obsidian);
+  }
+
+  /* Visible keyboard focus everywhere — quality floor, not optional */
+  :focus-visible {
+    outline: 1px solid var(--accent-amber);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  /* Respect reduced-motion at the root: kills scroll-linked and
+     decorative motion for anyone who has asked for it, site-wide. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
-html {
-  scroll-behavior: smooth;
-  background: var(--background);
+/* ==========================================================================
+   TEXTURE — tactile brutalism, controlled (Section 4)
+   ========================================================================== */
+
+.bg-film-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-body {
-  margin: 0;
-  min-height: 100%;
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(217, 166, 76, 0.08),
-      transparent 32%
-    ),
-    #080604;
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  overflow-x: hidden;
+.tactile-border {
+  border: 1px solid var(--border-tactile);
 }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-::selection {
-  background: var(--gold);
-  color: #080604;
-}
-
-/* -------------------------------- */
-/* TYPOGRAPHY SYSTEM                */
-/* -------------------------------- */
-
-.font-display {
-  font-family: var(--font-display);
-}
-
-.font-sans {
-  font-family: var(--font-sans);
-}
-
-/* -------------------------------- */
-/* CINEMATIC GRAIN                  */
-/* -------------------------------- */
-
-.cinematic-grain {
-  position: fixed;
-  inset: 0;
+/* Reusable corner marks — the "exhibit frame" tactile motif used across scenes */
+.frame-corners {
+  position: absolute;
+  inset: 1rem;
+  border: 1px solid var(--border-tactile);
+  border-radius: 2px;
   pointer-events: none;
-  z-index: 9999;
-  opacity: 0.035;
-  mix-blend-mode: screen;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.55'/%3E%3C/svg%3E");
+}
+@media (min-width: 640px) {
+  .frame-corners {
+    inset: 2rem;
+  }
 }
 
-/* -------------------------------- */
-/* EDITORIAL GRID                   */
-/* -------------------------------- */
-
-.editorial-grid {
-  background-image:
-    linear-gradient(
-      rgba(255, 248, 232, 0.025) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(255, 248, 232, 0.025) 1px,
-      transparent 1px
-    );
-
-  background-size: 80px 80px;
-  mask-image: linear-gradient(
-    to bottom,
-    transparent,
-    black 15%,
-    black 85%,
-    transparent
-  );
+.corner-mark {
+  position: absolute;
+  height: 1rem;
+  width: 1rem;
+  border-color: rgba(200, 154, 82, 0.5);
+  pointer-events: none;
+}
+.corner-mark--tl { top: 1rem; left: 1rem; border-top: 2px solid; border-left: 2px solid; }
+.corner-mark--tr { top: 1rem; right: 1rem; border-top: 2px solid; border-right: 2px solid; }
+.corner-mark--bl { bottom: 1rem; left: 1rem; border-bottom: 2px solid; border-left: 2px solid; }
+.corner-mark--br { bottom: 1rem; right: 1rem; border-bottom: 2px solid; border-right: 2px solid; }
+@media (min-width: 640px) {
+  .corner-mark--tl { top: 2rem; left: 2rem; }
+  .corner-mark--tr { top: 2rem; right: 2rem; }
+  .corner-mark--bl { bottom: 2rem; left: 2rem; }
+  .corner-mark--br { bottom: 2rem; right: 2rem; }
 }
 
-/* -------------------------------- */
-/* GOLD LINE                        */
-/* -------------------------------- */
-
-.gold-line {
+/* Hard editorial rule — a thin line that crosses the frame off-axis (Section 8) */
+.editorial-rule {
   height: 1px;
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(217, 166, 76, 0.6),
+    var(--border-tactile) 20%,
+    var(--border-tactile) 80%,
     transparent
   );
 }
 
-/* -------------------------------- */
-/* GLOW                            */
-/* -------------------------------- */
+/* ==========================================================================
+   TYPOGRAPHY-AS-ENVIRONMENT (Section 5)
+   ========================================================================== */
 
-.gold-glow {
-  box-shadow:
-    0 0 80px rgba(217, 166, 76, 0.08),
-    0 0 180px rgba(217, 166, 76, 0.04);
+.text-display {
+  font-family: var(--font-serif);
+  font-size: var(--step-display);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
 }
 
-/* -------------------------------- */
-/* SCROLLBAR                        */
-/* -------------------------------- */
+.text-hero {
+  font-family: var(--font-serif);
+  font-size: var(--step-hero);
+  line-height: 0.92;
+  letter-spacing: -0.015em;
+}
 
+.text-watermark {
+  font-family: var(--font-serif);
+  font-size: var(--step-watermark);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.text-gradient-ivory {
+  background: linear-gradient(180deg, #ffffff 10%, #f4ebdd 55%, #c89a52 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Mask for line-by-line reveal animations (Section 6, scrollytelling) */
+.mask-line {
+  overflow: hidden;
+  display: block;
+}
+
+/* ==========================================================================
+   MICRO-INTERACTIONS (Section 18)
+   ========================================================================== */
+
+.underline-draw {
+  position: relative;
+  text-decoration: none;
+}
+.underline-draw::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-fast) var(--ease-cinematic);
+}
+.underline-draw:hover::after {
+  transform: scaleX(1);
+}
+
+/* Vertical chapter index (Section 19) — used across scenes, not just intro */
+.chapter-index {
+  position: fixed;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: rgba(244, 235, 221, 0.35);
+}
+@media (min-width: 768px) {
+  .chapter-index {
+    display: flex;
+  }
+}
+.chapter-index [data-active="true"] {
+  color: var(--accent-amber);
+}
+
+/* ==========================================================================
+   SCROLLBAR — editorial, not browser-default
+   ========================================================================== */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #080604;
+  background: var(--bg-obsidian);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: rgba(217, 166, 76, 0.35);
-  border-radius: 999px;
+  background: rgba(200, 154, 82, 0.25);
+  border-radius: 2px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(217, 166, 76, 0.6);
-}
-
-/* -------------------------------- */
-/* MOBILE                           */
-/* -------------------------------- */
-
-@media (max-width: 640px) {
-  .editorial-grid {
-    background-size: 55px 55px;
-  }
-
-  body {
-    background:
-      radial-gradient(
-        circle at 50% 0%,
-        rgba(217, 166, 76, 0.07),
-        transparent 40%
-      ),
-      #080604;
-  }
-}
-
-/* -------------------------------- */
-/* REDUCED MOTION                   */
-/* -------------------------------- */
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+  background: var(--accent-amber);
 }
