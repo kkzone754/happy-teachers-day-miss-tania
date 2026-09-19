@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "motion/react";
 
 type IntroProps = {
   onStart: () => void;
@@ -28,6 +28,7 @@ export default function Intro({ onStart }: IntroProps) {
 
   const lightX = useTransform(smoothX, [-0.5, 0.5], ["30%", "70%"]);
   const lightY = useTransform(smoothY, [-0.5, 0.5], ["30%", "70%"]);
+  const cursorLight = useMotionTemplate`radial-gradient(800px circle at ${lightX} ${lightY}, rgba(212, 160, 70, 0.18), transparent 65%)`;
 
   useEffect(() => {
     const handlePointerMove = (e: PointerEvent) => {
@@ -134,7 +135,7 @@ export default function Intro({ onStart }: IntroProps) {
       <motion.div
         className="pointer-events-none absolute inset-0 z-0"
         style={{
-          background: `radial-gradient(800px circle at ${lightX.get()} ${lightY.get()}, rgba(212, 160, 70, 0.18), transparent 65%)`,
+          background: cursorLight,
         }}
       />
 
