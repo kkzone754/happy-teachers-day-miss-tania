@@ -6,6 +6,7 @@ import StoryScene from "./components/StoryScene";
 import ConfidenceScene from "./components/ConfidenceScene";
 import GuidanceScene from "./components/GuidanceScene";
 import AladdinScene from "./components/AladdinScene";
+import TeaScene from "./components/TeaScene";
 
 export default function Home() {
   const [started, setStarted] = useState(false);
@@ -17,9 +18,10 @@ export default function Home() {
   return (
     <main>
       <StoryScene />
-<ConfidenceScene />
-<GuidanceScene />
-<AladdinScene />
+      <ConfidenceScene />
+      <GuidanceScene />
+      <AladdinScene />
+      <TeaScene />
     </main>
   );
 }
