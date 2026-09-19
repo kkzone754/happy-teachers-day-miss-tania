@@ -33,7 +33,7 @@ const memories = [
   },
 ];
 
-export default function GuidanceScene() {
+export default function ConfidenceScene() {
   const sectionRef = useRef<HTMLElement | null>(null);
 
   useLayoutEffect(() => {
@@ -44,14 +44,14 @@ export default function GuidanceScene() {
     const ctx = gsap.context(() => {
       const q = gsap.utils.selector(section);
 
-      const chapter = q(".guidance-chapter");
-      const eyebrow = q(".guidance-eyebrow");
-      const title = q(".guidance-title");
-      const ghost = q(".guidance-ghost");
-      const memoriesEl = q(".guidance-memory");
-      const lines = q(".guidance-memory-line");
-      const final = q(".guidance-final");
-      const glow = q(".guidance-glow");
+      const chapter = q(".confidence-chapter");
+      const eyebrow = q(".confidence-eyebrow");
+      const title = q(".confidence-title");
+      const ghost = q(".confidence-ghost");
+      const memoriesEl = q(".confidence-memory");
+      const lines = q(".confidence-memory-line");
+      const final = q(".confidence-final");
+      const glow = q(".confidence-glow");
 
       gsap.set(chapter, {
         opacity: 0,
@@ -238,7 +238,7 @@ export default function GuidanceScene() {
       <div className="pointer-events-none absolute inset-0">
         <div className="editorial-grid absolute inset-0 opacity-60" />
 
-        <div className="guidance-glow absolute left-1/2 top-1/2 h-[50vw] w-[50vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#d9a64c]/[0.045] blur-[130px]" />
+        <div className="confidence-glow absolute left-1/2 top-1/2 h-[50vw] w-[50vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#d9a64c]/[0.045] blur-[130px]" />
 
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(8,6,4,0.28)_45%,#080604_100%)]" />
 
@@ -246,7 +246,7 @@ export default function GuidanceScene() {
       </div>
 
       {/* CHAPTER NUMBER */}
-      <div className="guidance-chapter absolute left-6 top-7 z-20 flex items-center gap-3 sm:left-10 sm:top-10">
+      <div className="confidence-chapter absolute left-6 top-7 z-20 flex items-center gap-3 sm:left-10 sm:top-10">
         <span className="font-sans text-[9px] font-semibold tracking-[0.35em] text-[#d9a64c]/55">
           CHAPTER
         </span>
@@ -264,7 +264,7 @@ export default function GuidanceScene() {
           {/* GIANT BACKGROUND WORD */}
           <div
             className="
-              guidance-ghost
+              confidence-ghost
               pointer-events-none
               absolute
               left-1/2
@@ -287,13 +287,13 @@ export default function GuidanceScene() {
 
           {/* HEADER */}
           <div className="relative">
-            <p className="guidance-eyebrow font-sans text-[9px] font-semibold uppercase tracking-[0.5em] text-[#d9a64c]/65 sm:text-[10px]">
+            <p className="confidence-eyebrow font-sans text-[9px] font-semibold uppercase tracking-[0.5em] text-[#d9a64c]/65 sm:text-[10px]">
               The person behind the confidence
             </p>
 
             <h2
               className="
-                guidance-title
+                confidence-title
                 mt-5
                 max-w-4xl
                 font-display
@@ -319,7 +319,7 @@ export default function GuidanceScene() {
                 <div
                   key={memory.number}
                   className="
-                    guidance-memory
+                    confidence-memory
                     absolute
                     left-0
                     right-0
@@ -359,7 +359,7 @@ export default function GuidanceScene() {
                       {memory.detail}
                     </p>
 
-                    <div className="guidance-memory-line mt-7 h-px w-full bg-gradient-to-r from-[#d9a64c]/70 via-[#d9a64c]/20 to-transparent" />
+                    <div className="confidence-memory-line mt-7 h-px w-full bg-gradient-to-r from-[#d9a64c]/70 via-[#d9a64c]/20 to-transparent" />
                   </div>
                 </div>
               ))}
@@ -367,7 +367,7 @@ export default function GuidanceScene() {
           </div>
 
           {/* FINAL GRATITUDE */}
-          <div className="guidance-final pointer-events-none absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 px-4 text-center">
+          <div className="confidence-final pointer-events-none absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 px-4 text-center">
             <p className="font-sans text-[9px] font-semibold uppercase tracking-[0.5em] text-[#d9a64c]/65">
               And that changed something
             </p>
