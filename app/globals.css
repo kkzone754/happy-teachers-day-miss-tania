@@ -250,3 +250,18 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-amber);
 }
+/* Reusable editorial grid — shared by cinematic chapters. */
+.editorial-grid {
+  background-image:
+    linear-gradient(to right, rgba(200, 154, 82, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(200, 154, 82, 0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse at center, black 0%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 78%);
+}
+
+/* Keep small exhibit metadata readable without overpowering the composition. */
+.exhibit-metadata {
+  color: rgba(255, 248, 232, 0.68);
+  text-shadow: 0 0 18px rgba(228, 185, 106, 0.08);
+}
