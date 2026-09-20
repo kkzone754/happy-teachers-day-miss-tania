@@ -254,7 +254,7 @@ export default function ConfidenceScene() {
         <span className="h-px w-8 bg-[#d9a64c]/30" />
 
         <span className="font-sans text-[10px] tracking-[0.25em] text-white/35">
-          03
+          02
         </span>
       </div>
 
