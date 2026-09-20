@@ -469,6 +469,11 @@ export default function AladdinScene() {
       ================================================== */}
 
       <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent" />
+
+      <div className="pointer-events-none absolute bottom-6 left-1/2 z-30 -translate-x-1/2 text-center">
+        <p className="font-sans text-[8px] uppercase tracking-[0.42em] text-white/35">scroll to continue</p>
+        <div className="mx-auto mt-2 h-7 w-4 rounded-full border border-amber-200/45"><div className="mx-auto mt-1.5 h-1.5 w-0.5 rounded-full bg-amber-200/80" /></div>
+      </div>
     </section>
   );
 }
