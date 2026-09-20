@@ -52,6 +52,9 @@ export default function ConfidenceScene() {
       const lines = q(".confidence-memory-line");
       const final = q(".confidence-final");
       const glow = q(".confidence-glow");
+      const ring = q(".confidence-ring");
+      const ring2 = q(".confidence-ring-2");
+      const core = q(".confidence-core");
 
       gsap.set(chapter, {
         opacity: 0,
@@ -76,6 +79,7 @@ export default function ConfidenceScene() {
       gsap.set(memoriesEl, {
         opacity: 0,
         y: 70,
+        scale: 0.98,
       });
 
       gsap.set(lines, {
@@ -87,6 +91,8 @@ export default function ConfidenceScene() {
         opacity: 0,
         y: 60,
       });
+
+      gsap.set([ring, ring2, core], { opacity: 0, scale: 0.55 });
 
       const intro = gsap.timeline();
 
@@ -126,7 +132,14 @@ export default function ConfidenceScene() {
             ease: "power3.out",
           },
           "-=0.7"
-        );
+        )
+        .to(ring, { opacity: 0.75, scale: 1, duration: 0.9, ease: "power3.out" }, "-=0.6")
+        .to(ring2, { opacity: 0.45, scale: 1, duration: 0.7, ease: "power3.out" }, "-=0.65")
+        .to(core, { opacity: 0.8, scale: 1, duration: 0.6, ease: "back.out(1.7)" }, "-=0.45");
+
+      gsap.to(ring, { rotation: 360, duration: 22, repeat: -1, ease: "none" });
+      gsap.to(ring2, { rotation: -360, duration: 15, repeat: -1, ease: "none" });
+      gsap.to(core, { scale: 1.18, opacity: 0.45, duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
 
       gsap.to(glow, {
         scale: 1.25,
@@ -169,15 +182,14 @@ export default function ConfidenceScene() {
           );
 
         if (index !== memoriesEl.length - 1) {
-          timeline.to(memory, {
-            opacity: 0.28,
-            y: -25,
-            duration: 0.6,
-          });
+          timeline
+            .to(memory, { opacity: 0, y: -28, scale: 0.985, filter: "blur(4px)", duration: 0.52, ease: "power3.inOut" })
+            .set(memory, { opacity: 0 });
         }
       });
 
       timeline
+        .to([ring, ring2, core], { opacity: 0.12, scale: 1.35, duration: 0.45 })
         .to(
           title,
           {
@@ -215,15 +227,10 @@ export default function ConfidenceScene() {
           },
           "-=0.2"
         )
-        .to(
-          glow,
-          {
-            scale: 1.7,
-            opacity: 1,
-            duration: 1,
-          },
-          "<"
-        );
+        .to(core, { opacity: 0.95, scale: 1.7, duration: 0.8, ease: "power3.out" }, "<")
+        .to(ring, { opacity: 0.65, scale: 1.45, duration: 0.8 }, "<")
+        .to(ring2, { opacity: 0.4, scale: 1.8, duration: 0.8 }, "<")
+        .to(glow, { scale: 1.7, opacity: 1, duration: 1 }, "<");
     }, section);
 
     return () => ctx.revert();
@@ -310,6 +317,12 @@ export default function ConfidenceScene() {
                 through every step.
               </span>
             </h2>
+          </div>
+
+          <div className="pointer-events-none absolute left-1/2 top-[57%] -z-0 h-[min(34vw,400px)] w-[min(34vw,400px)] -translate-x-1/2 -translate-y-1/2">
+            <div className="confidence-ring absolute inset-0 rounded-full border border-[#d9a64c]/20 [background:conic-gradient(from_20deg,transparent_0deg,rgba(217,166,76,0.32)_45deg,transparent_90deg,transparent_180deg,rgba(217,166,76,0.16)_225deg,transparent_270deg)]" />
+            <div className="confidence-ring-2 absolute inset-[12%] rounded-full border border-dashed border-[#d9a64c]/20" />
+            <div className="confidence-core absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f0d49a] shadow-[0_0_55px_rgba(217,166,76,0.7)]" />
           </div>
 
           {/* MEMORY STREAM */}
