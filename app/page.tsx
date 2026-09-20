@@ -8,6 +8,7 @@ import GuidanceScene from "./components/GuidanceScene";
 import AladdinScene from "./components/AladdinScene";
 import TeaScene from "./components/TeaScene";
 import ExperienceAtmosphere from "./components/ExperienceAtmosphere";
+import ExperienceDepth from "./components/ExperienceDepth";
 
 export default function Home() {
   const [started, setStarted] = useState(false);
@@ -19,6 +20,7 @@ export default function Home() {
   return (
     <main className="relative bg-[#050403]">
       <ExperienceAtmosphere />
+      <ExperienceDepth />
       <StoryScene />
       <ConfidenceScene />
       <GuidanceScene />
