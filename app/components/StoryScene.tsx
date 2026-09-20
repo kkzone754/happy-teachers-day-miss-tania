@@ -507,7 +507,7 @@ export default function StoryScene() {
           {/* Scroll */}
 
           <div className="scroll-hint mt-10 text-[9px] uppercase tracking-[0.4em] text-white/25 sm:text-[10px]">
-            Keep scrolling
+            scroll to continue
           </div>
         </div>
       </div>
