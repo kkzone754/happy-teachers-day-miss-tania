@@ -183,8 +183,8 @@ export default function GuidanceScene() {
             <div className="guidance-spine absolute left-3 top-4 bottom-4 w-px bg-gradient-to-b from-transparent via-[#d9a64c]/60 to-transparent sm:left-5" />
 
             <div className="absolute right-0 top-1/2 hidden -translate-y-1/2 flex-col items-center gap-5 sm:flex">
-              {memories.map((memory) => (
-                <span key={memory.number} className="guidance-progress-dot h-1.5 w-1.5 rounded-full border border-[#d9a64c]/80 bg-[#070504]" />
+              {memories.map((memory, index) => (
+                <span key={memory.number} className="guidance-progress-dot absolute right-0 h-1.5 w-1.5 rounded-full border border-[#d9a64c]/80 bg-[#070504]" style={{ top: `${index * 108 + 42}px` }} />
               ))}
             </div>
 
@@ -193,7 +193,7 @@ export default function GuidanceScene() {
                 <article
                   key={memory.number}
                   className="guidance-memory absolute left-9 right-0 top-1/2 -translate-y-1/2 sm:left-14"
-                  style={{ willChange: "transform, opacity, filter" }}
+                  style={{ willChange: "transform, opacity, filter", top: `${memories.findIndex((item) => item.number === memory.number) * 108}px` }}
                 >
                   <div className="group relative overflow-hidden rounded-[3px] border border-[#d9a64c]/[0.18] bg-[#0c0906]/75 px-5 py-5 shadow-[0_18px_70px_rgba(0,0,0,0.38)] backdrop-blur-md sm:px-7 sm:py-6">
                     <div className="absolute inset-0 bg-gradient-to-r from-[#d9a64c]/[0.08] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
