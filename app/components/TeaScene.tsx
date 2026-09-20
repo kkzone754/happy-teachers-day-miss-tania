@@ -196,25 +196,47 @@ export default function TeaScene() {
 function TeaCup({ delay, label }: { delay: number; label: string }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 25, scale: 0.88 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      initial={{ opacity: 0, y: 30, scale: 0.82, rotate: label === "yours" ? -4 : 4 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
       viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.9, delay, ease }}
-      className="relative h-[155px] w-[145px] sm:h-[175px] sm:w-[165px]"
+      transition={{ duration: 1, delay, ease }}
+      className="relative h-[205px] w-[180px] sm:h-[230px] sm:w-[205px]"
     >
+      {/* soft spotlight beneath each cup */}
+      <div className="absolute bottom-5 left-1/2 h-7 w-[150px] -translate-x-1/2 rounded-full bg-[#d9a64c]/10 blur-xl" />
+
+      {/* cup + handle */}
       <motion.div
-        animate={{ y: [0, -6, 0] }}
-        transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut", delay }}
-        className="absolute bottom-4 left-1/2 h-[105px] w-[125px] -translate-x-1/2 rounded-[24px_24px_34px_34px] border border-[#d9a64c]/30 bg-gradient-to-b from-[#2a1c10] to-[#0d0906] shadow-[0_25px_70px_rgba(0,0,0,0.65)] sm:h-[120px] sm:w-[140px]"
+        animate={{ y: [0, -5, 0] }}
+        transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut", delay }}
+        className="absolute bottom-9 left-1/2 h-[128px] w-[145px] -translate-x-1/2 sm:h-[145px] sm:w-[165px]"
       >
-        <div className="absolute left-1/2 top-4 h-3 w-[82%] -translate-x-1/2 rounded-full bg-[#050302] shadow-[0_0_24px_rgba(217,166,76,0.12)]" />
-        <div className="absolute -right-9 top-[30px] h-[54px] w-[45px] rounded-r-full border border-l-0 border-[#d9a64c]/25 sm:-right-11 sm:h-[62px] sm:w-[52px]" />
+        {/* handle */}
+        <div className="absolute -right-7 top-[36px] h-[66px] w-[55px] rounded-r-[28px] border-2 border-[#d9a64c]/35 bg-[#120c08]/80 sm:-right-9 sm:h-[74px] sm:w-[62px]" />
+        <div className="absolute -right-[17px] top-[48px] h-[42px] w-[35px] rounded-r-[20px] border border-[#d9a64c]/15 sm:-right-[20px] sm:top-[54px] sm:h-[46px] sm:w-[39px]" />
+
+        {/* porcelain body */}
+        <div className="absolute inset-x-0 bottom-0 h-[112px] rounded-[18px_18px_42px_42px] border border-[#e4b96a]/38 bg-[linear-gradient(145deg,#4a321d_0%,#24170d_38%,#0c0805_100%)] shadow-[inset_8px_8px_22px_rgba(255,236,186,0.08),inset_-10px_-12px_25px_rgba(0,0,0,0.6),0_28px_60px_rgba(0,0,0,0.65)] sm:h-[126px]" />
+
+        {/* rim */}
+        <div className="absolute left-1/2 top-1 h-[24px] w-[132px] -translate-x-1/2 rounded-[50%] border border-[#f0d49a]/40 bg-[#070402] shadow-[inset_0_5px_10px_rgba(217,166,76,0.16),0_5px_20px_rgba(0,0,0,0.45)] sm:h-[27px] sm:w-[150px]">
+          <div className="absolute left-1/2 top-1/2 h-[10px] w-[104px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#8a5a28]/25 blur-[3px] sm:w-[120px]" />
+        </div>
+
+        {/* small gold highlight */}
+        <div className="absolute left-[18px] top-[30px] h-[52px] w-[2px] rounded-full bg-gradient-to-b from-[#fff1c7]/35 to-transparent blur-[0.5px]" />
       </motion.div>
 
+      {/* animated steam */}
       <motion.div
-        animate={{ opacity: [0.04, 0.22, 0.04], y: [10, -18, -38], x: [0, 5, -3] }}
-        transition={{ duration: 3.8, repeat: Infinity, ease: "easeOut", delay }}
-        className="absolute left-1/2 top-[-8px] h-20 w-8 -translate-x-1/2 rounded-full bg-[#f0d49a]/10 blur-xl"
+        animate={{ opacity: [0.05, 0.3, 0.05], y: [8, -18, -42], x: [0, 7, -4], scale: [0.8, 1, 1.15] }}
+        transition={{ duration: 3.9, repeat: Infinity, ease: "easeOut", delay }}
+        className="absolute left-[40%] top-[-2px] h-24 w-7 rounded-full bg-[#f5dfb1]/15 blur-xl"
+      />
+      <motion.div
+        animate={{ opacity: [0.02, 0.22, 0.02], y: [10, -20, -48], x: [0, -5, 5], scale: [0.75, 1, 1.1] }}
+        transition={{ duration: 4.5, repeat: Infinity, ease: "easeOut", delay: delay + 0.7 }}
+        className="absolute left-[55%] top-[-8px] h-28 w-6 rounded-full bg-[#f5dfb1]/12 blur-xl"
       />
 
       <span className="absolute bottom-0 left-1/2 -translate-x-1/2 font-sans text-[7px] uppercase tracking-[0.4em] text-white/20">
