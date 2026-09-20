@@ -42,13 +42,16 @@ export default function GuidanceScene() {
       const spine = q(".guidance-spine");
       const dots = q(".guidance-progress-dot");
 
-      // One active card only. Everything starts hidden.
-      gsap.set(memoriesEl, { autoAlpha: 0, x: 70, y: 0, scale: 0.985 });
-      gsap.set(final, { autoAlpha: 0, y: 45, scale: 0.97 });
+      // Cards enter one-by-one from the right and stay in place.
+// Nothing exits until all four are visible together.
+      gsap.set(memoriesEl, { autoAlpha: 0, x: 220, y: 0, scale: 0.96, filter: "blur(7px)" });
+      gsap.set(final, { autoAlpha: 0, y: 45, scale: 0.96 });
       gsap.set(spine, { scaleY: 0, transformOrigin: "top center" });
       gsap.set(dots, { autoAlpha: 0.25, scale: 0.7 });
 
-      gsap.timeline()
+      const intro = gsap.timeline();
+
+      intro
         .to(chapter, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out" })
         .to(eyebrow, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out" }, "-=0.3")
         .to(title, { autoAlpha: 1, y: 0, duration: 0.9, ease: "power4.out" }, "-=0.3")
@@ -62,61 +65,50 @@ export default function GuidanceScene() {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=2600",
-          scrub: 0.9,
+          end: "+=3400",
+          scrub: 1,
           pin: true,
           anticipatePin: 1,
         },
       });
 
-      // Leave the opening composition before cards begin.
+      // Clear the opening title before the card sequence begins.
       timeline
-        .to(title, { autoAlpha: 0.08, y: -35, filter: "blur(5px)", duration: 0.7, ease: "power3.inOut" })
-        .to(eyebrow, { autoAlpha: 0, y: -18, duration: 0.4 }, "<")
-        .to(introLine, { autoAlpha: 0, duration: 0.25 }, "<")
-        .to(ghost, { autoAlpha: 0.025, scale: 1.04, duration: 0.6 }, "<");
+        .to(title, { autoAlpha: 0, y: -45, filter: "blur(5px)", duration: 0.65, ease: "power3.inOut" })
+        .to(eyebrow, { autoAlpha: 0, y: -18, duration: 0.35 }, "<")
+        .to(introLine, { autoAlpha: 0, duration: 0.2 }, "<")
+        .to(ghost, { autoAlpha: 0.025, scale: 1.04, duration: 0.5 }, "<")
+        .to(spine, { scaleY: 1, duration: 0.65, ease: "power2.out" }, "-=0.15");
 
       memoriesEl.forEach((memory, index) => {
         const dot = dots[index];
 
-        // ENTER — only this card becomes visible.
         timeline
           .to(memory, {
             autoAlpha: 1,
             x: 0,
             scale: 1,
-            duration: 0.75,
-            ease: "power3.out",
+            filter: "blur(0px)",
+            duration: 0.9,
+            ease: "power4.out",
           })
-          .to(dot, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, "<");
-
-        // HOLD — gives the user time to read.
-        timeline.to({}, { duration: 0.65 });
-
-        // EXIT — IMPORTANT: completely hide the card before the next card enters.
-        if (index !== memoriesEl.length - 1) {
-          timeline
-            .to(memory, {
-              autoAlpha: 0,
-              x: -45,
-              scale: 0.985,
-              filter: "blur(5px)",
-              duration: 0.65,
-              ease: "power3.inOut",
-            })
-            .to(dot, { autoAlpha: 0.25, scale: 0.7, duration: 0.25 }, "<")
-            .to({}, { duration: 0.18 });
-        }
+          .to(dot, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, "<")
+          .to({}, { duration: 0.65 });
       });
 
+      // All four cards are now visible together.
+      // First they leave, then the left-side story moves to center,
+      // then the final gratitude message appears.
       timeline
-        .to(spine, { scaleY: 1, duration: 1.1, ease: "power2.out" }, "-=0.3")
-        // Guarantee every card is gone before the final message.
-        .set(memoriesEl, { autoAlpha: 0 })
-        .to(ghost, { autoAlpha: 0.02, scale: 1.08, duration: 0.55 })
-        .to(final, { autoAlpha: 1, y: 0, scale: 1, duration: 1, ease: "power4.out" }, "-=0.1")
-        .to(glow, { scale: 1.5, opacity: 0.9, duration: 1 }, "<");
-    }, section);
+        .to(memoriesEl, { autoAlpha: 0, x: -70, scale: 0.98, filter: "blur(5px)", duration: 0.7, stagger: 0.03, ease: "power3.inOut" })
+        .to(dots, { autoAlpha: 0, x: 35, scale: 0.5, duration: 0.45, stagger: 0.04 }, "<")
+        .to(spine, { scaleY: 0, duration: 0.45 }, "<")
+        .to(".guidance-left", { x: 0, y: -10, autoAlpha: 1, duration: 0.8, ease: "power4.out" })
+        .to({}, { duration: 0.45 })
+        .to(".guidance-left", { autoAlpha: 0, y: -25, scale: 0.98, duration: 0.55, ease: "power3.inOut" })
+        .to(ghost, { autoAlpha: 0.015, scale: 1.08, duration: 0.5 }, "<")
+        .to(final, { autoAlpha: 1, y: 0, scale: 1, duration: 1.0, ease: "power4.out" }, "-=0.05")
+        .to(glow, { scale: 1.5, opacity: 0.9, duration: 1 }, "<");    }, section);
 
     return () => ctx.revert();
   }, []);
@@ -140,7 +132,7 @@ export default function GuidanceScene() {
 
       <div className="relative z-10 mx-auto flex h-full w-full max-w-[1500px] items-center">
         <div className="grid w-full grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(480px,0.82fr)] lg:gap-16">
-          <div className="relative flex min-h-[500px] items-center">
+          <div className="guidance-left relative flex min-h-[500px] items-center" style={{ transform: "translateX(0)" }}>
             <div className="guidance-ghost pointer-events-none absolute left-[4%] top-1/2 -translate-y-1/2 whitespace-nowrap font-display text-[24vw] font-semibold uppercase leading-none tracking-[-0.1em] text-[#f0d49a] sm:text-[18vw] lg:left-[-5%] lg:text-[15vw]">
               CONFIDENCE
             </div>
@@ -188,7 +180,7 @@ export default function GuidanceScene() {
               ))}
             </div>
 
-            <div className="relative h-full pl-9 sm:pl-14">
+            <div className="relative h-full min-h-[440px] pl-9 sm:pl-14">
               {memories.map((memory) => (
                 <article
                   key={memory.number}
