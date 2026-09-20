@@ -102,6 +102,7 @@ export default function GuidanceScene() {
         .to(spine, { scaleY: 0, duration: 0.45 }, "<")
         .to(".guidance-left", { x: "25vw", y: 0, autoAlpha: 1, duration: 0.9, ease: "power4.out" })
         .to({}, { duration: 0.5 })
+        .to(".guidance-left", { autoAlpha: 0, y: -30, scale: 0.98, duration: 0.65, ease: "power3.inOut" })
         .to(final, { autoAlpha: 1, y: 0, scale: 1, duration: 1.0, ease: "power4.out" }, "-=0.05")
         .to(glow, { scale: 1.5, opacity: 0.9, duration: 1 }, "<");    }, section);
 
@@ -179,7 +180,7 @@ export default function GuidanceScene() {
               {memories.map((memory) => (
                 <article
                   key={memory.number}
-                  className="guidance-memory absolute left-9 right-0 top-1/2 -translate-y-1/2 sm:left-14"
+                  className="guidance-memory absolute left-9 right-0 sm:left-14"
                   style={{ willChange: "transform, opacity, filter", top: `${memories.findIndex((item) => item.number === memory.number) * 124}px` }}
                 >
                   <div className="group relative overflow-hidden rounded-[3px] border border-[#d9a64c]/[0.18] bg-[#0c0906]/75 px-5 py-5 shadow-[0_18px_70px_rgba(0,0,0,0.38)] backdrop-blur-md sm:px-7 sm:py-6">
