@@ -98,6 +98,11 @@ export default function TeaScene() {
           Somehow, they stay.
         </motion.p>
       </div>
+
+      <div className="pointer-events-none absolute bottom-6 left-1/2 z-30 -translate-x-1/2 text-center">
+        <p className="font-sans text-[8px] uppercase tracking-[0.42em] text-white/30">scroll to continue</p>
+        <div className="mx-auto mt-2 h-7 w-4 rounded-full border border-amber-200/40"><div className="mx-auto mt-1.5 h-1.5 w-0.5 rounded-full bg-amber-200/75" /></div>
+      </div>
     </section>
   );
 }
