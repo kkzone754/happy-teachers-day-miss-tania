@@ -72,12 +72,9 @@ export default function GuidanceScene() {
         },
       });
 
-      // Clear the opening title before the card sequence begins.
+      // Keep the left-side story visible for the entire Chapter 03 sequence.
       timeline
-        .to(title, { autoAlpha: 0, y: -45, filter: "blur(5px)", duration: 0.65, ease: "power3.inOut" })
-        .to(eyebrow, { autoAlpha: 0, y: -18, duration: 0.35 }, "<")
-        .to(introLine, { autoAlpha: 0, duration: 0.2 }, "<")
-        .to(ghost, { autoAlpha: 0.025, scale: 1.04, duration: 0.5 }, "<")
+        .to(ghost, { autoAlpha: 0.025, scale: 1.04, duration: 0.5 })
         .to(spine, { scaleY: 1, duration: 0.65, ease: "power2.out" }, "-=0.15");
 
       memoriesEl.forEach((memory, index) => {
@@ -103,10 +100,8 @@ export default function GuidanceScene() {
         .to(memoriesEl, { autoAlpha: 0, x: -70, scale: 0.98, filter: "blur(5px)", duration: 0.7, stagger: 0.03, ease: "power3.inOut" })
         .to(dots, { autoAlpha: 0, x: 35, scale: 0.5, duration: 0.45, stagger: 0.04 }, "<")
         .to(spine, { scaleY: 0, duration: 0.45 }, "<")
-        .to(".guidance-left", { x: 0, y: -10, autoAlpha: 1, duration: 0.8, ease: "power4.out" })
-        .to({}, { duration: 0.45 })
-        .to(".guidance-left", { autoAlpha: 0, y: -25, scale: 0.98, duration: 0.55, ease: "power3.inOut" })
-        .to(ghost, { autoAlpha: 0.015, scale: 1.08, duration: 0.5 }, "<")
+        .to(".guidance-left", { x: "25vw", y: 0, autoAlpha: 1, duration: 0.9, ease: "power4.out" })
+        .to({}, { duration: 0.5 })
         .to(final, { autoAlpha: 1, y: 0, scale: 1, duration: 1.0, ease: "power4.out" }, "-=0.05")
         .to(glow, { scale: 1.5, opacity: 0.9, duration: 1 }, "<");    }, section);
 
@@ -176,7 +171,7 @@ export default function GuidanceScene() {
 
             <div className="absolute right-0 top-1/2 hidden -translate-y-1/2 flex-col items-center gap-5 sm:flex">
               {memories.map((memory, index) => (
-                <span key={memory.number} className="guidance-progress-dot absolute right-0 h-1.5 w-1.5 rounded-full border border-[#d9a64c]/80 bg-[#070504]" style={{ top: `${index * 108 + 42}px` }} />
+                <span key={memory.number} className="guidance-progress-dot absolute right-0 h-1.5 w-1.5 rounded-full border border-[#d9a64c]/80 bg-[#070504]" style={{ top: `${index * 124 + 42}px` }} />
               ))}
             </div>
 
