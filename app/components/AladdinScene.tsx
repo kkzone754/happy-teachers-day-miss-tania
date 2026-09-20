@@ -53,7 +53,7 @@ export default function AladdinScene() {
       // -------------------------------------------------
 
       gsap.to(".aladdin-stage-image", {
-        scale: 1.06,
+        scale: 1.1,
         duration: 12,
         ease: "none",
       });
@@ -290,16 +290,23 @@ export default function AladdinScene() {
       className="relative min-h-screen overflow-hidden bg-black text-[#fff7e6]"
     >
       {/* =================================================
-          ABSTRACT STAGE — no photo
+          REAL STAGE IMAGE
       ================================================== */}
-      <div className="aladdin-stage-image absolute inset-0 bg-[radial-gradient(circle_at_50%_38%,rgba(232,187,93,0.18),transparent_22%),linear-gradient(180deg,#100914_0%,#160b09_42%,#030204_100%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_25%,rgba(0,0,0,0.3)_58%,rgba(0,0,0,0.9)_100%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(5,2,8,0.48)_0%,rgba(5,2,5,0.05)_35%,rgba(2,0,1,0.72)_100%)]" />
+      <div
+        className="aladdin-stage-image absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/aladdin-stage.jpg')",
+        }}
+      />
+
+      {/* =================================================
+          DARK CINEMATIC OVERLAY
+      ================================================== */}
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(5,2,8,0.68)_0%,rgba(5,2,5,0.18)_35%,rgba(3,1,2,0.38)_65%,rgba(2,0,1,0.88)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_28%,rgba(0,0,0,0.2)_58%,rgba(0,0,0,0.78)_100%)]" />
 
       <div className="pointer-events-none absolute left-0 top-0 h-full w-[17%] bg-gradient-to-r from-[#050205] via-[#170b12]/90 to-transparent" />
       <div className="pointer-events-none absolute right-0 top-0 h-full w-[17%] bg-gradient-to-l from-[#050205] via-[#170b12]/90 to-transparent" />
-
-      <div className="pointer-events-none absolute left-1/2 top-[28%] h-[1px] w-[72%] -translate-x-1/2 bg-gradient-to-r from-transparent via-[#e4b96a]/35 to-transparent" />
 
       {/* =================================================
           WARM STAGE LIGHT
