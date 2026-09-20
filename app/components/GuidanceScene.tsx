@@ -180,7 +180,7 @@ export default function GuidanceScene() {
                 <article
                   key={memory.number}
                   className="guidance-memory absolute left-9 right-0 top-1/2 -translate-y-1/2 sm:left-14"
-                  style={{ willChange: "transform, opacity, filter", top: `${memories.findIndex((item) => item.number === memory.number) * 108}px` }}
+                  style={{ willChange: "transform, opacity, filter", top: `${memories.findIndex((item) => item.number === memory.number) * 124}px` }}
                 >
                   <div className="group relative overflow-hidden rounded-[3px] border border-[#d9a64c]/[0.18] bg-[#0c0906]/75 px-5 py-5 shadow-[0_18px_70px_rgba(0,0,0,0.38)] backdrop-blur-md sm:px-7 sm:py-6">
                     <div className="absolute inset-0 bg-gradient-to-r from-[#d9a64c]/[0.08] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
