@@ -154,12 +154,26 @@ export default function ConfidenceScene() {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=1800",
+          end: "+=2200",
           scrub: 1,
           pin: true,
           anticipatePin: 1,
         },
       });
+
+      // Clear the Chapter 02 heading before the memory stream starts.
+      // This prevents the large heading from ever overlapping the story cards.
+      timeline
+        .to(title, {
+          opacity: 0,
+          y: -45,
+          filter: "blur(5px)",
+          duration: 0.65,
+          ease: "power3.inOut",
+        })
+        .to(eyebrow, { opacity: 0, y: -18, duration: 0.35 }, "<")
+        .to(ghost, { opacity: 0.025, scale: 1.04, duration: 0.5 }, "<")
+        .to([ring, ring2], { opacity: 0.22, scale: 1.08, duration: 0.5 }, "<");
 
       memoriesEl.forEach((memory, index) => {
         const line = lines[index];
@@ -326,7 +340,7 @@ export default function ConfidenceScene() {
           </div>
 
           {/* MEMORY STREAM */}
-          <div className="absolute left-0 right-0 top-[54%]">
+          <div className="absolute left-0 right-0 top-[62%]">
             <div className="relative mx-auto w-full max-w-4xl">
               {memories.map((memory, index) => (
                 <div
