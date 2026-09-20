@@ -9,6 +9,7 @@ import AladdinScene from "./components/AladdinScene";
 import TeaScene from "./components/TeaScene";
 import ExperienceAtmosphere from "./components/ExperienceAtmosphere";
 import ExperienceDepth from "./components/ExperienceDepth";
+import CinematicTransitions from "./components/CinematicTransitions";
 
 export default function Home() {
   const [started, setStarted] = useState(false);
@@ -21,6 +22,7 @@ export default function Home() {
     <main className="relative bg-[#050403]">
       <ExperienceAtmosphere />
       <ExperienceDepth />
+      <CinematicTransitions />
       <StoryScene />
       <ConfidenceScene />
       <GuidanceScene />
