@@ -40,6 +40,8 @@ export default function GuidanceScene() {
       const glow = q(".guidance-glow");
       const beam = q(".guidance-beam");
       const spine = q(".guidance-spine");
+      const depthPanel = q(".guidance-depth-panel");
+      const depthGlow = q(".guidance-depth-glow");
       const dots = q(".guidance-progress-dot");
 
       // Cards enter one-by-one from the right and stay in place.
@@ -48,6 +50,8 @@ export default function GuidanceScene() {
       gsap.set(final, { autoAlpha: 0, y: 45, scale: 0.96 });
       gsap.set(spine, { scaleY: 0, transformOrigin: "top center" });
       gsap.set(dots, { autoAlpha: 0.25, scale: 0.7 });
+      gsap.set(depthPanel, { opacity: 0, rotateY: -8, x: 35, scale: 0.97 });
+      gsap.set(depthGlow, { opacity: 0, scale: 0.8 });
 
       const intro = gsap.timeline();
 
@@ -56,10 +60,13 @@ export default function GuidanceScene() {
         .to(eyebrow, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out" }, "-=0.3")
         .to(title, { autoAlpha: 1, y: 0, duration: 0.9, ease: "power4.out" }, "-=0.3")
         .to(introLine, { scaleX: 1, duration: 0.6 }, "-=0.4")
-        .to(ghost, { autoAlpha: 0.055, scale: 1, duration: 1.1 }, "-=0.65");
+        .to(ghost, { autoAlpha: 0.055, scale: 1, duration: 1.1 }, "-=0.65")
+        .to(depthPanel, { opacity: 1, rotateY: 0, x: 0, scale: 1, duration: 1.1, ease: "power4.out" }, "-=0.8")
+        .to(depthGlow, { opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" }, "-=0.9");
 
       gsap.to(glow, { scale: 1.18, opacity: 0.75, duration: 5, repeat: -1, yoyo: true, ease: "sine.inOut" });
       gsap.to(beam, { x: 65, opacity: 0.7, duration: 7, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.to(depthGlow, { x: -30, y: 20, scale: 1.08, duration: 6, repeat: -1, yoyo: true, ease: "sine.inOut" });
 
       const timeline = gsap.timeline({
         scrollTrigger: {
@@ -100,6 +107,8 @@ export default function GuidanceScene() {
         .to(memoriesEl, { autoAlpha: 0, x: -70, scale: 0.98, filter: "blur(5px)", duration: 0.7, stagger: 0.03, ease: "power3.inOut" })
         .to(dots, { autoAlpha: 0, x: 35, scale: 0.5, duration: 0.45, stagger: 0.04 }, "<")
         .to(spine, { scaleY: 0, duration: 0.45 }, "<")
+        .to(depthPanel, { rotateY: 6, x: -25, scale: 1.04, duration: 0.8, ease: "power3.inOut" }, "<")
+        .to(depthGlow, { scale: 1.35, opacity: 0.55, duration: 0.8 }, "<")
         .to(".guidance-left", { x: "25vw", y: 0, autoAlpha: 1, duration: 0.9, ease: "power4.out" })
         .to({}, { duration: 0.5 })
         .to(".guidance-left", { autoAlpha: 0, y: -30, scale: 0.98, duration: 0.65, ease: "power3.inOut" })
@@ -110,7 +119,7 @@ export default function GuidanceScene() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative h-screen overflow-hidden bg-[#070504] px-6 text-[#fff8e8]">
+    <section ref={sectionRef} className="relative h-screen overflow-hidden bg-[#070504] px-6 text-[#fff8e8]" style={{ perspective: "1500px" }}>
       <div className="pointer-events-none absolute inset-0">
         <div className="editorial-grid absolute inset-0 opacity-35" />
         <div className="guidance-glow absolute left-[72%] top-[42%] h-[44vw] w-[44vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#d9a64c]/[0.07] blur-[120px]" />
@@ -126,7 +135,11 @@ export default function GuidanceScene() {
         <span className="font-sans text-[10px] tracking-[0.25em] text-white/45">03</span>
       </div>
 
-      <div className="relative z-10 mx-auto flex h-full w-full max-w-[1500px] items-center">
+      <div className="guidance-depth-glow pointer-events-none absolute right-[8%] top-1/2 z-[2] h-[46vw] w-[34vw] -translate-y-1/2 rounded-full bg-[#e4b96a]/[0.045] blur-[100px]" />
+
+      <div className="guidance-depth-panel pointer-events-none absolute right-[3%] top-[16%] z-[3] h-[68%] w-[40%] rounded-[4px] border border-[#d9a64c]/[0.07] bg-[#d9a64c]/[0.018] shadow-[inset_0_0_90px_rgba(217,166,76,0.025),0_30px_100px_rgba(0,0,0,0.35)] [transform-style:preserve-3d] lg:block" />
+
+      <div className="relative z-10 mx-auto flex h-full w-full max-w-[1500px] items-center" style={{ transformStyle: "preserve-3d" }}>
         <div className="grid w-full grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(480px,0.82fr)] lg:gap-16">
           <div className="guidance-left relative flex min-h-[500px] items-center" style={{ transform: "translateX(0)" }}>
             <div className="guidance-ghost pointer-events-none absolute left-[4%] top-1/2 -translate-y-1/2 whitespace-nowrap font-display text-[24vw] font-semibold uppercase leading-none tracking-[-0.1em] text-[#f0d49a] sm:text-[18vw] lg:left-[-5%] lg:text-[15vw]">
@@ -176,14 +189,14 @@ export default function GuidanceScene() {
               ))}
             </div>
 
-            <div className="relative h-full min-h-[440px] pl-9 sm:pl-14">
+            <div className="relative h-full min-h-[440px] pl-9 sm:pl-14 [transform-style:preserve-3d]">
               {memories.map((memory) => (
                 <article
                   key={memory.number}
-                  className="guidance-memory absolute left-9 right-0 sm:left-14"
+                  className="guidance-memory absolute left-9 right-0 [transform-style:preserve-3d] sm:left-14"
                   style={{ willChange: "transform, opacity, filter", top: `${memories.findIndex((item) => item.number === memory.number) * 124}px` }}
                 >
-                  <div className="group relative overflow-hidden rounded-[3px] border border-[#d9a64c]/[0.18] bg-[#0c0906]/75 px-5 py-5 shadow-[0_18px_70px_rgba(0,0,0,0.38)] backdrop-blur-md sm:px-7 sm:py-6">
+                  <div className="group relative overflow-hidden rounded-[3px] [transform:translateZ(0)] border border-[#d9a64c]/[0.18] bg-[#0c0906]/75 px-5 py-5 shadow-[0_18px_70px_rgba(0,0,0,0.38)] backdrop-blur-md sm:px-7 sm:py-6">
                     <div className="absolute inset-0 bg-gradient-to-r from-[#d9a64c]/[0.08] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                     <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-[#e4b96a] to-transparent" />
 
