@@ -24,25 +24,32 @@ export default function ConfidenceScene() {
       const reveal = q(".confidence-reveal");
       const glow = q(".confidence-glow");
       const ring = q(".confidence-ring");
+      const depthOrb = q(".confidence-depth-orb");
+      const memoryWord = q(".confidence-memory-word");
       const particles = q(".confidence-particle");
 
-      gsap.set([eyebrow, intro, divider, support, quote, reveal, glow, ring], { opacity: 0 });
-      gsap.set(intro, { y: 35, scale: 0.96 });
-      gsap.set(support, { y: 30 });
-      gsap.set(quote, { y: 35, scale: 0.97 });
-      gsap.set(reveal, { y: 40, scale: 0.8 });
+      gsap.set([eyebrow, intro, divider, support, quote, reveal, glow, ring, depthOrb, memoryWord], { opacity: 0 });
+      gsap.set(intro, { y: 35, scale: 0.96, rotateX: 8 });
+      gsap.set(support, { y: 30, rotateX: 5 });
+      gsap.set(quote, { y: 35, scale: 0.97, rotateX: 4 });
+      gsap.set(reveal, { y: 40, scale: 0.8, rotateX: 8 });
 
       const entrance = gsap.timeline();
 
       entrance
-        .to(eyebrow, { opacity: 1, duration: 0.8, ease: "power3.out" })
-        .to(intro, { opacity: 1, y: 0, scale: 1, duration: 1.1, ease: "power4.out" }, "-=0.35")
+        .to(depthOrb, { opacity: 1, scale: 1, duration: 1.4, ease: "power3.out" })
+        .to(ring, { opacity: 1, scale: 1, duration: 1.2, ease: "power3.out" }, "-=1")
+        .to(eyebrow, { opacity: 1, duration: 0.8, ease: "power3.out" }, "-=0.6")
+        .to(intro, { opacity: 1, y: 0, scale: 1, rotateX: 0, duration: 1.1, ease: "power4.out" }, "-=0.35")
         .to(divider, { opacity: 1, scaleX: 1, duration: 0.8, ease: "power3.out" }, "-=0.5")
-        .to(support, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" }, "-=0.4")
-        .to(quote, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power4.out" }, "-=0.35");
+        .to(support, { opacity: 1, y: 0, rotateX: 0, duration: 0.9, ease: "power3.out" }, "-=0.4")
+        .to(quote, { opacity: 1, y: 0, scale: 1, rotateX: 0, duration: 1, ease: "power4.out" }, "-=0.35")
+        .to(memoryWord, { opacity: 0.08, x: 0, duration: 1, ease: "power3.out" }, "-=0.5");
 
       gsap.to(glow, { scale: 1.25, opacity: 0.8, duration: 5, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.to(depthOrb, { x: 35, y: -25, scale: 1.08, duration: 7, repeat: -1, yoyo: true, ease: "sine.inOut" });
       gsap.to(ring, { rotate: 360, duration: 24, repeat: -1, ease: "none" });
+      gsap.to(q(".confidence-ring-2"), { rotate: -360, duration: 34, repeat: -1, ease: "none" });
 
       particles.forEach((particle, index) => {
         gsap.to(particle, {
@@ -61,7 +68,7 @@ export default function ConfidenceScene() {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=1200",
+          end: "+=1500",
           scrub: 1,
           pin: true,
           anticipatePin: 1,
@@ -70,26 +77,54 @@ export default function ConfidenceScene() {
 
       transformation
         .addLabel("memory")
-        .to(intro, { y: -70, scale: 1.08, opacity: 0, duration: 0.8, ease: "power3.inOut" }, "memory")
+        .to(memoryWord, { scale: 1.3, opacity: 0.12, y: -35, duration: 0.7, ease: "power3.inOut" }, "memory")
+        .to(intro, { y: -80, scale: 1.1, rotateX: -5, opacity: 0, duration: 0.8, ease: "power3.inOut" }, "memory")
         .to(eyebrow, { y: -40, opacity: 0, duration: 0.5 }, "memory")
-        .to(support, { y: -35, opacity: 0, duration: 0.7 }, "memory+=0.1")
-        .to(quote, { scale: 1.05, y: -25, opacity: 0.2, duration: 0.8 }, "memory+=0.2")
+        .to(support, { y: -35, opacity: 0, rotateX: -6, duration: 0.7 }, "memory+=0.1")
+        .to(quote, { scale: 1.05, y: -25, opacity: 0.2, rotateX: -4, duration: 0.8 }, "memory+=0.2")
         .to(glow, { scale: 1.5, opacity: 1, duration: 1 }, "memory+=0.2")
         .to(ring, { scale: 1.5, opacity: 0.7, duration: 1 }, "memory+=0.2")
+        .to(q(".confidence-ring-2"), { scale: 1.35, opacity: 0.45, duration: 1 }, "memory+=0.2")
         .to(quote, { opacity: 0, filter: "blur(12px)", scale: 1.2, duration: 0.7 }, "+=0.1")
-        .to(reveal, { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "power4.out" }, "-=0.2")
-        .to(glow, { scale: 1.8, opacity: 0.55, duration: 1 }, "<");
+        .to(memoryWord, { opacity: 0, scale: 1.6, duration: 0.7 }, "<")
+        .to(reveal, { opacity: 1, y: 0, scale: 1, rotateX: 0, duration: 1.2, ease: "power4.out" }, "-=0.2")
+        .to(glow, { scale: 1.8, opacity: 0.55, duration: 1 }, "<")
+        .to(depthOrb, { scale: 1.45, opacity: 0.45, duration: 1 }, "<");
     }, section);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative h-screen overflow-hidden bg-[#070605] px-6 text-center text-amber-50">
+    <section
+      ref={sectionRef}
+      className="relative h-screen overflow-hidden bg-[#070605] px-6 text-center text-amber-50"
+      style={{ perspective: "1400px" }}
+    >
       <div className="pointer-events-none absolute inset-0">
+        <div className="confidence-depth-orb absolute left-[22%] top-[22%] h-[34vw] w-[34vw] min-h-[280px] min-w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#d9a64c]/[0.045] blur-[90px]" />
+
+        <div className="absolute inset-[-10%] opacity-[0.11]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(228,185,106,0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(228,185,106,0.14) 1px, transparent 1px)",
+            backgroundSize: "120px 120px",
+            maskImage: "radial-gradient(ellipse at center, black 0%, transparent 66%)",
+            WebkitMaskImage: "radial-gradient(ellipse at center, black 0%, transparent 66%)",
+          }}
+        />
+
         <div className="confidence-glow absolute left-1/2 top-1/2 h-[45vw] w-[45vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300/[0.06] blur-[110px]" />
+
         <div className="confidence-ring absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-amber-100/[0.06] sm:h-[480px] sm:w-[480px]" />
+        <div className="confidence-ring-2 absolute left-1/2 top-1/2 h-[240px] w-[240px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-amber-200/[0.035] sm:h-[370px] sm:w-[370px]" />
+
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_10%,rgba(0,0,0,0.8)_100%)]" />
+
+        <p className="confidence-memory-word absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[18vw] font-black uppercase tracking-[-0.08em] text-amber-100/10">
+          COURAGE
+        </p>
+
         <span className="confidence-particle absolute left-[12%] top-[28%] h-1 w-1 rounded-full bg-amber-100/40" />
         <span className="confidence-particle absolute left-[24%] top-[70%] h-1 w-1 rounded-full bg-amber-100/30" />
         <span className="confidence-particle absolute left-[72%] top-[25%] h-1 w-1 rounded-full bg-amber-100/40" />
@@ -97,7 +132,7 @@ export default function ConfidenceScene() {
       </div>
 
       <div className="relative z-10 flex h-full items-center justify-center">
-        <div className="mx-auto w-full max-w-4xl">
+        <div className="mx-auto w-full max-w-4xl [transform-style:preserve-3d]">
           <p className="confidence-eyebrow text-[10px] uppercase tracking-[0.45em] text-amber-200/55 sm:text-xs">
             Then something changed
           </p>
