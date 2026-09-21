@@ -48,6 +48,10 @@ export default function AladdinScene() {
         opacity: 0,
       });
 
+      gsap.set([".aladdin-depth-glow", ".aladdin-beam-left", ".aladdin-beam-right", ".aladdin-stage-frame"], {
+        opacity: 0,
+      });
+
       // -------------------------------------------------
       // BACKGROUND MOVEMENT
       // -------------------------------------------------
@@ -66,6 +70,10 @@ export default function AladdinScene() {
         yoyo: true,
         ease: "sine.inOut",
       });
+
+      gsap.to(".aladdin-beam-left", { x: 45, rotate: -9, opacity: 0.75, duration: 6, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.to(".aladdin-beam-right", { x: -45, rotate: 9, opacity: 0.7, duration: 7, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.to(".aladdin-depth-glow", { x: 35, y: -20, scale: 1.12, duration: 7, repeat: -1, yoyo: true, ease: "sine.inOut" });
 
       // -------------------------------------------------
       // FLOATING DUST
@@ -182,6 +190,10 @@ export default function AladdinScene() {
         // EMPTY STAGE
         // -------------------------------------------------
 
+        .to(".aladdin-stage-frame", { opacity: 1, scale: 1, duration: 0.8, ease: "power3.out" })
+        .to(".aladdin-depth-glow", { opacity: 1, scale: 1, duration: 0.8 }, "<")
+        .to(".aladdin-beam-left", { opacity: 1, duration: 0.6 }, "<")
+        .to(".aladdin-beam-right", { opacity: 1, duration: 0.6 }, "<")
         .to(".aladdin-stage-glow", {
           opacity: 0.9,
           duration: 0.5,
@@ -288,6 +300,7 @@ export default function AladdinScene() {
     <section
       ref={sectionRef}
       className="relative min-h-screen overflow-hidden bg-black text-[#fff7e6]"
+      style={{ perspective: "1500px" }}
     >
       {/* =================================================
           REAL STAGE IMAGE
@@ -302,6 +315,9 @@ export default function AladdinScene() {
       {/* =================================================
           DARK CINEMATIC OVERLAY
       ================================================== */}
+      <div className="aladdin-depth-glow pointer-events-none absolute left-1/2 top-[38%] z-[2] h-[60vh] w-[55vw] -translate-x-1/2 rounded-full bg-amber-300/[0.055] blur-[100px]" />
+      <div className="aladdin-stage-frame pointer-events-none absolute inset-[5%] z-[3] rounded-[4px] border border-amber-200/[0.08] shadow-[inset_0_0_100px_rgba(228,185,106,0.025)]" />
+
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(5,2,8,0.68)_0%,rgba(5,2,5,0.18)_35%,rgba(3,1,2,0.38)_65%,rgba(2,0,1,0.88)_100%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_28%,rgba(0,0,0,0.2)_58%,rgba(0,0,0,0.78)_100%)]" />
 
@@ -320,9 +336,9 @@ export default function AladdinScene() {
           GOLDEN LIGHT BEAMS
       ================================================== */}
 
-      <div className="pointer-events-none absolute left-[34%] top-0 h-[72%] w-[12%] -skew-x-[12deg] bg-gradient-to-b from-amber-100/10 via-amber-300/10 to-transparent blur-2xl" />
+      <div className="aladdin-beam-left pointer-events-none absolute left-[34%] top-0 h-[78%] w-[13%] -skew-x-[12deg] bg-gradient-to-b from-amber-100/10 via-amber-300/10 to-transparent blur-2xl" />
 
-      <div className="pointer-events-none absolute right-[34%] top-0 h-[72%] w-[12%] skew-x-[12deg] bg-gradient-to-b from-amber-100/10 via-amber-300/10 to-transparent blur-2xl" />
+      <div className="aladdin-beam-right pointer-events-none absolute right-[34%] top-0 h-[78%] w-[13%] skew-x-[12deg] bg-gradient-to-b from-amber-100/10 via-amber-300/10 to-transparent blur-2xl" />
 
       {/* =================================================
           DUST PARTICLES
@@ -345,7 +361,7 @@ export default function AladdinScene() {
           CONTENT
       ================================================== */}
 
-      <div className="relative z-10 flex min-h-screen items-center justify-center px-6 text-center">
+      <div className="relative z-10 flex min-h-screen items-center justify-center px-6 text-center" style={{ transformStyle: "preserve-3d" }}>
         <div className="w-full max-w-4xl">
 
           {/* KICKER */}
