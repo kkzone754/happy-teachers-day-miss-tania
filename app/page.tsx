@@ -7,6 +7,7 @@ import ConfidenceScene from "./components/ConfidenceScene";
 import GuidanceScene from "./components/GuidanceScene";
 import AladdinScene from "./components/AladdinScene";
 import TeaScene from "./components/TeaScene";
+import SongScene from "./components/SongScene";
 import ExperienceAtmosphere from "./components/ExperienceAtmosphere";
 import ExperienceDepth from "./components/ExperienceDepth";
 import ExperienceParticles from "./components/ExperienceParticles";
@@ -30,6 +31,7 @@ export default function Home() {
       <GuidanceScene />
       <AladdinScene />
       <TeaScene />
+      <SongScene />
     </main>
   );
 }
