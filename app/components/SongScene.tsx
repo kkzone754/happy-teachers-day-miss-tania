@@ -46,24 +46,8 @@ export default function SongScene() {
         .to(stage, { scale: 1.04, opacity: 0.35, duration: 1.2 }, "<")
         .to(spark, { scale: 1.5, opacity: 0, duration: 1 }, "<");
 
-      gsap.to(q(".song-light"), {
-        x: "16vw",
-        rotation: 7,
-        duration: 5,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
-
-      gsap.to(q(".song-particle"), {
-        y: -70,
-        opacity: 0.15,
-        duration: 2.8,
-        stagger: 0.18,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
+      gsap.to(q(".song-light"), { x: "16vw", rotation: 7, duration: 5, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.to(q(".song-particle"), { y: -70, opacity: 0.15, duration: 2.8, stagger: 0.18, repeat: -1, yoyo: true, ease: "sine.inOut" });
     }, root);
 
     return () => ctx.revert();
@@ -96,15 +80,15 @@ export default function SongScene() {
 
       <div className="song-detail absolute left-[12%] top-[25%] z-20 w-[470px]">
         <p className="font-sans text-[10px] uppercase tracking-[0.4em] text-[#d9a64c]/55">A few days later</p>
-        <h3 className="mt-5 font-serif text-4xl leading-tight text-white/95">You told me about a small program happening at the office.</h3>
+        <h3 className="mt-5 font-serif text-4xl leading-tight text-white/95">You told me about a small program happening at the Head Office.</h3>
         <p className="mt-6 font-sans text-base leading-8 text-white/50">You said I could perform my song there too.</p>
       </div>
 
       <div className="song-opportunity absolute right-[11%] top-[34%] z-20 w-[390px] border-l border-[#d9a64c]/35 pl-7">
-        <p className="font-sans text-[9px] uppercase tracking-[0.42em] text-[#d9a64c]/60">What it meant</p>
-        <p className="mt-5 font-serif text-2xl leading-9 text-white/80">Maybe it was simply another opportunity.</p>
-        <p className="mt-4 font-sans text-sm leading-7 text-white/40">But after you appreciated my performance, something changed inside me.</p>
-        <p className="mt-5 font-serif text-xl leading-8 text-[#d9a64c]/85">I felt happy. And I felt a new determination to do even better.</p>
+        <p className="font-sans text-[9px] uppercase tracking-[0.42em] text-[#d9a64c]/60">What your appreciation gave me</p>
+        <p className="mt-5 font-serif text-2xl leading-9 text-white/80">Your appreciation genuinely made me happy.</p>
+        <p className="mt-4 font-sans text-sm leading-7 text-white/40">It gave me a new kind of motivation — a feeling that I should keep going and keep improving.</p>
+        <p className="mt-5 font-serif text-xl leading-8 text-[#d9a64c]/85">It gave me the courage to believe I could do even better.</p>
       </div>
 
       <div className="song-spark absolute left-1/2 top-[55%] z-30 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#d9a64c]/35 bg-[#d9a64c]/8 shadow-[0_0_80px_rgba(217,166,76,0.2)]" />
@@ -117,7 +101,7 @@ export default function SongScene() {
         <p className="font-sans text-[10px] uppercase tracking-[0.5em] text-[#d9a64c]/60">What stayed with me</p>
         <h3 className="mt-7 font-serif text-5xl leading-tight tracking-[-0.035em] text-white/95">You didn’t just appreciate what I could do.</h3>
         <p className="mx-auto mt-7 max-w-2xl font-serif text-2xl leading-10 text-[#d9a64c]/85">You gave me the feeling that I could do even more.</p>
-        <p className="mx-auto mt-6 max-w-xl font-sans text-sm leading-7 text-white/40">And that little bit of encouragement became a new spark inside me — to keep trying, keep learning, and keep getting better.</p>
+        <p className="mx-auto mt-6 max-w-xl font-sans text-sm leading-7 text-white/40">And that encouragement became a new spark inside me — to keep trying, keep learning, and keep getting better.</p>
       </div>
 
       <div className="pointer-events-none absolute bottom-6 left-1/2 z-40 -translate-x-1/2 text-center">
