@@ -1,12 +1,66 @@
 "use client";
 
+import { useLayoutEffect, useRef } from "react";
 import { motion } from "motion/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function TeaScene() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const ctx = gsap.context(() => {
+      const q = gsap.utils.selector(section);
+      const hero = q(".tea-hero");
+      const object = q(".tea-object");
+      const memory = q(".tea-memory");
+      const lastDay = q(".tea-last-day");
+      const ending = q(".tea-ending");
+      const steam = q(".tea-depth-steam");
+
+      gsap.set([hero, object, memory, lastDay, ending], { opacity: 0 });
+      gsap.set(hero, { y: 45, rotateX: 8 });
+      gsap.set(object, { y: 70, scale: 0.82, rotateY: -10 });
+      gsap.set(memory, { y: 45, scale: 0.94 });
+      gsap.set(lastDay, { y: 55, opacity: 0 });
+      gsap.set(ending, { y: 40, scale: 0.92 });
+
+      gsap.to(steam, { y: -45, x: 18, opacity: 0.65, duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut" });
+
+      const intro = gsap.timeline();
+      intro
+        .to(hero, { opacity: 1, y: 0, rotateX: 0, duration: 1, ease: "power4.out" })
+        .to(object, { opacity: 1, y: 0, scale: 1, rotateY: 0, duration: 1.2, ease: "power4.out" }, "-=0.55")
+        .to(memory, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, "-=0.5");
+
+      const timeline = gsap.timeline({
+        scrollTrigger: { trigger: section, start: "top top", end: "+=2200", scrub: 1, pin: true, anticipatePin: 1 },
+      });
+
+      timeline
+        .to(hero, { y: -90, opacity: 0, scale: 1.08, rotateX: -5, duration: 0.55, ease: "power3.inOut" })
+        .to(object, { y: -30, scale: 1.08, rotateY: 7, duration: 0.5 }, "<")
+        .to(memory, { y: -40, opacity: 0.18, scale: 1.04, duration: 0.5 }, "<")
+        .to(memory, { y: -120, opacity: 0, filter: "blur(10px)", duration: 0.65, ease: "power3.inOut" })
+        .to(lastDay, { opacity: 1, y: 0, duration: 0.9, ease: "power4.out" }, "-=0.15")
+        .to(object, { scale: 1.16, rotateY: -4, y: 10, duration: 0.75 }, "<")
+        .to(lastDay, { y: -70, opacity: 0, duration: 0.75, ease: "power3.inOut" }, "+=0.25")
+        .to(ending, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power4.out" }, "-=0.1")
+        .to(object, { scale: 1.3, opacity: 0.35, duration: 1 }, "<");
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#070504] px-6 py-20 text-[#fff8e8] sm:px-10">
+    <section ref={sectionRef} className="relative h-screen overflow-hidden bg-[#070504] px-6 py-20 text-[#fff8e8] sm:px-10" style={{ perspective: "1500px" }}>
       {/* cinematic atmosphere */}
       <div className="pointer-events-none absolute inset-0">
         <div className="editorial-grid absolute inset-0 opacity-25" />
@@ -29,7 +83,7 @@ export default function TeaScene() {
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1450px] items-center">
         <div className="grid w-full items-center gap-12 lg:grid-cols-[0.9fr_1fr] lg:gap-20">
           {/* story / left side */}
-          <div className="max-w-3xl">
+          <div className="tea-hero max-w-3xl [transform-style:preserve-3d]">
             <motion.p
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -89,14 +143,17 @@ export default function TeaScene() {
           </div>
 
           {/* cinematic memory object */}
-          <div className="relative flex min-h-[540px] items-center justify-center">
+          <div className="relative flex min-h-[540px] items-center justify-center [transform-style:preserve-3d]">
             <motion.div
+              className="tea-object"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.35 }}
               transition={{ duration: 1.1, ease }}
               className="relative w-full max-w-[610px]"
             >
+              <div className="tea-depth-steam pointer-events-none absolute left-1/2 top-[8%] h-40 w-24 -translate-x-1/2 rounded-full bg-[#f5dfb1]/[0.04] blur-3xl" />
+
               {/* orbit / stage */}
               <div className="absolute left-1/2 top-[42%] h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#d9a64c]/10" />
               <div className="absolute left-1/2 top-[42%] h-[315px] w-[315px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#d9a64c]/[0.07]" />
@@ -110,6 +167,7 @@ export default function TeaScene() {
 
               {/* memory card */}
               <motion.div
+                className="tea-memory"
                 initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
                 whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 viewport={{ once: true, amount: 0.35 }}
@@ -141,6 +199,7 @@ export default function TeaScene() {
 
               {/* last-day reveal */}
               <motion.div
+                className="tea-last-day"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.28 }}
@@ -163,6 +222,7 @@ export default function TeaScene() {
               </motion.div>
 
               <motion.div
+                className="tea-ending"
                 initial={{ opacity: 0, scale: 0.96 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, amount: 0.22 }}
