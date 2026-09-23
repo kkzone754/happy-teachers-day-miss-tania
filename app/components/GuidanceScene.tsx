@@ -180,28 +180,28 @@ export default function GuidanceScene() {
             </div>
           </div>
 
-          <div className="relative min-h-[430px] lg:min-h-[500px]">
+          <div className="relative min-h-[560px] lg:min-h-[560px]">
             <div className="guidance-spine absolute left-3 top-4 bottom-4 w-px bg-gradient-to-b from-transparent via-[#d9a64c]/60 to-transparent sm:left-5" />
 
             <div className="absolute right-0 top-1/2 hidden -translate-y-1/2 flex-col items-center gap-5 sm:flex">
               {memories.map((memory, index) => (
-                <span key={memory.number} className="guidance-progress-dot absolute right-0 h-1.5 w-1.5 rounded-full border border-[#d9a64c]/80 bg-[#070504]" style={{ top: `${index * 124 + 42}px` }} />
+                <span key={memory.number} className="guidance-progress-dot absolute right-0 h-1.5 w-1.5 rounded-full border border-[#d9a64c]/80 bg-[#070504]" style={{ top: `${index * 124 + 34}px` }} />
               ))}
             </div>
 
-            <div className="relative h-full min-h-[440px] pl-9 sm:pl-14 [transform-style:preserve-3d]">
+            <div className="relative grid min-h-[560px] grid-rows-4 gap-3 pl-9 sm:pl-14 [transform-style:preserve-3d]">
               {memories.map((memory) => (
                 <article
                   key={memory.number}
-                  className="guidance-memory absolute left-9 right-0 [transform-style:preserve-3d] sm:left-14"
-                  style={{ willChange: "transform, opacity, filter", top: `${memories.findIndex((item) => item.number === memory.number) * 124}px` }}
+                  className="guidance-memory relative left-auto right-auto min-h-0 [transform-style:preserve-3d] sm:left-auto"
+                  style={{ willChange: "transform, opacity, filter" }}
                 >
-                  <div className="group relative overflow-hidden rounded-[3px] [transform:translateZ(0)] border border-[#d9a64c]/[0.18] bg-[#0c0906]/75 px-5 py-5 shadow-[0_18px_70px_rgba(0,0,0,0.38)] backdrop-blur-md sm:px-7 sm:py-6">
+                  <div className="group relative h-full overflow-hidden rounded-[3px] [transform:translateZ(0)] border border-[#d9a64c]/[0.18] bg-[#0c0906]/75 px-5 py-4 shadow-[0_18px_70px_rgba(0,0,0,0.38)] backdrop-blur-md sm:px-6 sm:py-4">
                     <div className="absolute inset-0 bg-gradient-to-r from-[#d9a64c]/[0.08] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                     <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-[#e4b96a] to-transparent" />
 
                     <div className="relative flex items-start gap-4 sm:gap-5">
-                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[#d9a64c]/45 bg-[#0a0705] text-[#e4b96a] shadow-[0_0_32px_rgba(217,166,76,0.12)] sm:h-[68px] sm:w-[68px]">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#d9a64c]/45 bg-[#0a0705] text-[#e4b96a] shadow-[0_0_32px_rgba(217,166,76,0.12)] sm:h-14 sm:w-14">
                         <MemoryIcon type={memory.icon} />
                       </div>
 
@@ -212,17 +212,17 @@ export default function GuidanceScene() {
                           <span className="font-sans text-[8px] font-semibold tracking-[0.4em] text-white/40">{memory.label}</span>
                         </div>
 
-                        <h3 className="mt-3 font-display text-[clamp(1.35rem,2.2vw,2.35rem)] font-medium leading-[1] tracking-[-0.035em] text-[#fff8e8]">
+                        <h3 className="mt-2 font-display text-[clamp(1.25rem,1.95vw,2rem)] font-medium leading-[1.05] tracking-[-0.03em] text-[#fff8e8]">
                           {memory.title}
                         </h3>
 
-                        <p className="mt-3 font-sans text-[10px] uppercase tracking-[0.18em] text-white/35 sm:text-[11px]">
+                        <p className="mt-2 font-sans text-[9px] uppercase tracking-[0.16em] text-white/35 sm:text-[10px]">
                           {memory.detail}
                         </p>
                       </div>
                     </div>
 
-                    <div className="relative mt-5 h-px w-full bg-gradient-to-r from-[#d9a64c]/45 via-[#d9a64c]/10 to-transparent" />
+                    <div className="relative mt-3 h-px w-full bg-gradient-to-r from-[#d9a64c]/45 via-[#d9a64c]/10 to-transparent" />
                   </div>
                 </article>
               ))}
