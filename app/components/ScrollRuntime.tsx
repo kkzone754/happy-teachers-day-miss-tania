@@ -21,7 +21,9 @@ export default function ScrollRuntime() {
     refresh();
 
     const fontsReady = document.fonts?.ready;
-    fontsReady?.then(refresh).catch(() => undefined);
+    if (fontsReady) {
+      fontsReady.then(refresh).catch(() => undefined);
+    }
 
     window.addEventListener("resize", scheduleRefresh, { passive: true });
 
