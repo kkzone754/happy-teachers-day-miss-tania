@@ -44,18 +44,8 @@ export default function StoryScene() {
       const glow = q(".main-glow");
       const particlesEls = q(".particle");
       const frame = q(".cinematic-frame");
-
       gsap.set(
-        [
-          chapter,
-          title,
-          location,
-          memoryIntro,
-          memoryDetail,
-          fear,
-          hint,
-          frame,
-        ],
+        [chapter, title, location, memoryIntro, memoryDetail, fear, frame],
         { opacity: 0 }
       );
 
@@ -131,14 +121,7 @@ export default function StoryScene() {
           },
           "-=0.3"
         )
-        .to(
-          hint,
-          {
-            opacity: 1,
-            duration: 0.6,
-          },
-          "-=0.15"
-        );
+        ;
 
       // --------------------------------------------------
       // MOVING LIGHT
