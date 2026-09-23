@@ -265,3 +265,40 @@
   color: rgba(255, 248, 232, 0.68);
   text-shadow: 0 0 18px rgba(228, 185, 106, 0.08);
 }
+
+
+/* ==========================================================================
+   CINEMATIC QA POLISH
+   Shared stability rules for pinned, scroll-driven desktop chapters.
+   ========================================================================== */
+
+html {
+  scrollbar-gutter: stable;
+  overscroll-behavior-x: none;
+}
+
+body {
+  min-width: 320px;
+}
+
+/* GSAP creates pin-spacers around pinned chapters. Keep the transition field
+   visually continuous instead of exposing a transparent seam during refresh. */
+.gsap-pin-spacer {
+  background: var(--bg-obsidian);
+}
+
+/* Avoid accidental text selection while the experience is being dragged/
+   scrolled, without disabling selection inside normal text blocks. */
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Keep the shared atmosphere subtle enough that chapter typography remains
+   the visual priority on large screens. */
+@media (min-width: 1024px) {
+  .cinematic-frame,
+  .editorial-grid {
+    contain: paint;
+  }
+}
