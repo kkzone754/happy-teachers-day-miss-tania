@@ -37,7 +37,6 @@ export default function StoryScene() {
       const memoryDetail = q(".memory-detail");
       const fear = q(".fear-text");
 
-      const hint = q(".scroll-hint");
 
       const spotlight = q(".spotlight");
       const spotlightTwo = q(".spotlight-two");
@@ -120,8 +119,7 @@ export default function StoryScene() {
             ease: "power3.out",
           },
           "-=0.3"
-        )
-        ;
+        );
 
       // --------------------------------------------------
       // MOVING LIGHT
