@@ -14,6 +14,7 @@ import ExperienceAtmosphere from "./components/ExperienceAtmosphere";
 import ExperienceDepth from "./components/ExperienceDepth";
 import ExperienceParticles from "./components/ExperienceParticles";
 import CinematicTransitions from "./components/CinematicTransitions";
+import ScrollRuntime from "./components/ScrollRuntime";
 
 export default function Home() {
   const [started, setStarted] = useState(false);
@@ -28,6 +29,7 @@ export default function Home() {
       <ExperienceDepth />
       <ExperienceParticles />
       <CinematicTransitions />
+      <ScrollRuntime />
       <StoryScene />
       <ConfidenceScene />
       <GuidanceScene />
