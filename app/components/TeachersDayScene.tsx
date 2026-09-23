@@ -25,12 +25,16 @@ export default function TeachersDayScene() {
       const dust = q(".td-dust");
       const line = q(".td-line");
       const finalGlow = q(".td-final-glow");
+      const finalWords = q(".td-final-word");
+      const corner = q(".td-corner");
 
       gsap.set([date, title, name, message, signature], { opacity: 0, y: 55 });
       gsap.set(halo, { opacity: 0, scale: 0.45 });
       gsap.set([ringA, ringB], { opacity: 0, scale: 0.65 });
       gsap.set(line, { scaleX: 0, transformOrigin: "50% 50%" });
       gsap.set(finalGlow, { opacity: 0, scale: 0.7 });
+      gsap.set(finalWords, { opacity: 0, y: 35, letterSpacing: "0.08em" });
+      gsap.set(corner, { opacity: 0 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -115,6 +119,14 @@ export default function TeachersDayScene() {
           y: -20,
           duration: 0.7,
         }, "<")
+        .to(finalWords, {
+          opacity: 1,
+          y: 0,
+          letterSpacing: "0.22em",
+          duration: 1.3,
+          ease: "power3.out",
+        })
+        .to(corner, { opacity: 1, duration: 0.5 }, "<0.2")
         .to([halo, ringA, ringB], {
           scale: 1.45,
           opacity: 0.32,
@@ -153,6 +165,8 @@ export default function TeachersDayScene() {
       <div className="td-light pointer-events-none absolute -left-[22vw] top-[10%] h-[72vh] w-[44vw] rotate-[-14deg] bg-[linear-gradient(90deg,transparent,rgba(217,166,76,0.17),transparent)] blur-3xl" />
       <div className="td-final-glow pointer-events-none absolute left-1/2 top-[45%] h-[62vh] w-[62vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#d9a64c]/[0.08] blur-3xl" />
       <div className="pointer-events-none absolute inset-[6%] border border-[#d9a64c]/[0.07]" />
+      <div className="td-corner pointer-events-none absolute left-[7%] top-[7%] z-40 font-sans text-[8px] uppercase tracking-[0.45em] text-white/25">A small tribute · 2026</div>
+      <div className="td-corner pointer-events-none absolute right-[7%] top-[7%] z-40 font-sans text-[8px] uppercase tracking-[0.45em] text-white/25">For Miss Tania</div>
 
       <div className="td-halo pointer-events-none absolute left-1/2 top-[47%] z-10 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#d9a64c]/35 bg-[#d9a64c]/[0.07] shadow-[0_0_150px_rgba(217,166,76,0.24)]">
         <div className="absolute inset-5 rounded-full border border-[#d9a64c]/15" />
@@ -195,9 +209,9 @@ export default function TeachersDayScene() {
         <p className="mt-8 font-sans text-[9px] uppercase tracking-[0.5em] text-white/30">With gratitude · Kamran</p>
       </div>
 
-      <div className="pointer-events-none absolute bottom-6 left-1/2 z-40 -translate-x-1/2 text-center">
-        <p className="font-sans text-[8px] uppercase tracking-[0.42em] text-white/25">scroll to continue</p>
-        <div className="mx-auto mt-2 h-7 w-4 rounded-full border border-[#d9a64c]/45"><div className="mx-auto mt-1.5 h-1.5 w-0.5 rounded-full bg-[#d9a64c]/80" /></div>
+      <div className="td-final-word pointer-events-none absolute left-1/2 top-[47%] z-40 -translate-x-1/2 -translate-y-1/2 text-center">
+        <p className="font-sans text-[8px] uppercase tracking-[0.5em] text-[#d9a64c]/55">A chapter ends</p>
+        <p className="mt-5 font-serif text-6xl tracking-[-0.04em] text-white/90">Thank you.</p>
       </div>
     </section>
   );
