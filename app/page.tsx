@@ -9,6 +9,7 @@ import AladdinScene from "./components/AladdinScene";
 import TeaScene from "./components/TeaScene";
 import SongScene from "./components/SongScene";
 import StayedScene from "./components/StayedScene";
+import TeachersDayScene from "./components/TeachersDayScene";
 import ExperienceAtmosphere from "./components/ExperienceAtmosphere";
 import ExperienceDepth from "./components/ExperienceDepth";
 import ExperienceParticles from "./components/ExperienceParticles";
@@ -34,6 +35,7 @@ export default function Home() {
       <TeaScene />
       <SongScene />
       <StayedScene />
+      <TeachersDayScene />
     </main>
   );
 }
