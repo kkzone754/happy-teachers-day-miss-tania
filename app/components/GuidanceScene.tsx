@@ -183,20 +183,24 @@ export default function GuidanceScene() {
           <div className="relative min-h-[560px] lg:min-h-[560px]">
             <div className="guidance-spine absolute left-3 top-4 bottom-4 w-px bg-gradient-to-b from-transparent via-[#d9a64c]/60 to-transparent sm:left-5" />
 
-            <div className="absolute right-0 top-1/2 hidden -translate-y-1/2 flex-col items-center gap-5 sm:flex">
+            <div className="absolute right-0 top-0 hidden h-full w-2 sm:block">
               {memories.map((memory, index) => (
-                <span key={memory.number} className="guidance-progress-dot absolute right-0 h-1.5 w-1.5 rounded-full border border-[#d9a64c]/80 bg-[#070504]" style={{ top: `${index * 124 + 34}px` }} />
+                <span
+                  key={memory.number}
+                  className="guidance-progress-dot absolute right-0 h-1.5 w-1.5 -translate-y-1/2 rounded-full border border-[#d9a64c]/80 bg-[#070504]"
+                  style={{ top: `${index * 25 + 12.5}%` }}
+                />
               ))}
             </div>
 
-            <div className="relative grid min-h-[560px] grid-rows-4 gap-3 pl-9 sm:pl-14 [transform-style:preserve-3d]">
+            <div className="relative flex min-h-[560px] flex-col gap-3 pl-9 sm:gap-4 sm:pl-14 [transform-style:preserve-3d]">
               {memories.map((memory) => (
                 <article
                   key={memory.number}
-                  className="guidance-memory relative left-auto right-auto min-h-0 [transform-style:preserve-3d] sm:left-auto"
+                  className="guidance-memory relative left-auto right-auto min-h-[126px] flex-none [transform-style:preserve-3d] sm:left-auto"
                   style={{ willChange: "transform, opacity, filter" }}
                 >
-                  <div className="group relative h-full overflow-hidden rounded-[3px] [transform:translateZ(0)] border border-[#d9a64c]/[0.18] bg-[#0c0906]/75 px-5 py-4 shadow-[0_18px_70px_rgba(0,0,0,0.38)] backdrop-blur-md sm:px-6 sm:py-4">
+                  <div className="group relative min-h-[126px] overflow-hidden rounded-[3px] [transform:translateZ(0)] border border-[#d9a64c]/[0.18] bg-[#0c0906]/75 px-5 py-4 shadow-[0_18px_70px_rgba(0,0,0,0.38)] backdrop-blur-md sm:px-6 sm:py-4">
                     <div className="absolute inset-0 bg-gradient-to-r from-[#d9a64c]/[0.08] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                     <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-[#e4b96a] to-transparent" />
 
@@ -216,7 +220,7 @@ export default function GuidanceScene() {
                           {memory.title}
                         </h3>
 
-                        <p className="mt-2 font-sans text-[9px] uppercase tracking-[0.16em] text-white/35 sm:text-[10px]">
+                        <p className="mt-2 font-sans text-[9px] uppercase leading-relaxed tracking-[0.12em] text-white/35 sm:text-[10px]">
                           {memory.detail}
                         </p>
                       </div>
