@@ -58,36 +58,6 @@
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    isolation: isolate;
-  }
-
-  /* A restrained film layer keeps the whole experience feeling like one
-     cinematic piece instead of a collection of separate web sections. */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 9998;
-    pointer-events: none;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.9'/%3E%3C/svg%3E");
-    mix-blend-mode: soft-light;
-  }
-
-  /* Subtle edge falloff: the center stays the visual stage while chapter
-     edges naturally disappear into the obsidian background. */
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 9997;
-    pointer-events: none;
-    background: radial-gradient(
-      ellipse at center,
-      transparent 42%,
-      rgba(0, 0, 0, 0.16) 78%,
-      rgba(0, 0, 0, 0.42) 100%
-    );
   }
 
   /* Selection must be a pseudo-element, not a CSS property */
