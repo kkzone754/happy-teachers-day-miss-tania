@@ -193,30 +193,30 @@ export default function GuidanceScene() {
               ))}
             </div>
 
-            <div className="relative flex min-h-[560px] flex-col gap-3 pl-9 sm:gap-4 sm:pl-14 [transform-style:preserve-3d]">
+            <div className="relative flex min-h-[600px] flex-col gap-2 pl-9 sm:gap-3 sm:pl-14 [transform-style:preserve-3d]">
               {memories.map((memory) => (
                 <article
                   key={memory.number}
-                  className="guidance-memory relative left-auto right-auto min-h-[126px] flex-none [transform-style:preserve-3d] sm:left-auto"
+                  className="guidance-memory relative left-auto right-auto min-h-[140px] flex-none [transform-style:preserve-3d] sm:left-auto"
                   style={{ willChange: "transform, opacity, filter" }}
                 >
-                  <div className="group relative min-h-[126px] overflow-hidden rounded-[3px] [transform:translateZ(0)] border border-[#d9a64c]/[0.18] bg-[#0c0906]/75 px-5 py-4 shadow-[0_18px_70px_rgba(0,0,0,0.38)] backdrop-blur-md sm:px-6 sm:py-4">
+                  <div className="group relative min-h-[140px] overflow-hidden rounded-[3px] [transform:translateZ(0)] border border-[#d9a64c]/[0.18] bg-[#0c0906]/75 px-4 py-3 shadow-[0_18px_70px_rgba(0,0,0,0.38)] backdrop-blur-md sm:px-5 sm:py-3">
                     <div className="absolute inset-0 bg-gradient-to-r from-[#d9a64c]/[0.08] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                     <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-[#e4b96a] to-transparent" />
 
-                    <div className="relative flex items-start gap-4 sm:gap-5">
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#d9a64c]/45 bg-[#0a0705] text-[#e4b96a] shadow-[0_0_32px_rgba(217,166,76,0.12)] sm:h-14 sm:w-14">
+                    <div className="relative flex items-start gap-3 sm:gap-4">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#d9a64c]/45 bg-[#0a0705] text-[#e4b96a] shadow-[0_0_32px_rgba(217,166,76,0.12)] sm:h-12 sm:w-12">
                         <MemoryIcon type={memory.icon} />
                       </div>
 
                       <div className="min-w-0 flex-1 pt-1">
                         <div className="flex items-center gap-3">
-                          <span className="font-display text-2xl font-medium text-[#f0d49a] sm:text-3xl">{memory.number}</span>
+                          <span className="font-display text-xl font-medium text-[#f0d49a] sm:text-2xl">{memory.number}</span>
                           <span className="h-px w-9 bg-[#d9a64c]/35" />
                           <span className="font-sans text-[8px] font-semibold tracking-[0.4em] text-white/40">{memory.label}</span>
                         </div>
 
-                        <h3 className="mt-2 font-display text-[clamp(1.25rem,1.95vw,2rem)] font-medium leading-[1.05] tracking-[-0.03em] text-[#fff8e8]">
+                        <h3 className="mt-2 font-display text-[clamp(1.1rem,1.55vw,1.65rem)] font-medium leading-[1.05] tracking-[-0.03em] text-[#fff8e8]">
                           {memory.title}
                         </h3>
 
@@ -226,7 +226,7 @@ export default function GuidanceScene() {
                       </div>
                     </div>
 
-                    <div className="relative mt-3 h-px w-full bg-gradient-to-r from-[#d9a64c]/45 via-[#d9a64c]/10 to-transparent" />
+                    <div className="relative mt-2 h-px w-full bg-gradient-to-r from-[#d9a64c]/45 via-[#d9a64c]/10 to-transparent" />
                   </div>
                 </article>
               ))}
