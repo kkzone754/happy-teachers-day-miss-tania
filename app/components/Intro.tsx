@@ -250,21 +250,24 @@ export default function Intro({ onStart }: IntroProps) {
 
             <span className="relative z-10 flex items-center gap-3.5 font-sans text-[11px] font-semibold uppercase tracking-[0.35em] text-[#fff8e8] sm:text-xs">
               <span>Begin Experience</span>
-              <motion.svg
-                animate={{ x: isHovered ? 6 : 0 }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
-                className="h-4 w-4 text-[#e4b96a]"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+              <span
+                className="inline-flex h-4 w-4 translate-x-0 text-[#e4b96a] transition-transform duration-250 ease-out group-hover:translate-x-1.5"
+                aria-hidden="true"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                />
-              </motion.svg>
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                  />
+                </svg>
+              </span>
             </span>
           </button>
         </motion.div>
