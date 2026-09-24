@@ -145,12 +145,11 @@ export default function TeaScene() {
           {/* cinematic memory object */}
           <div className="relative flex min-h-[540px] items-center justify-center [transform-style:preserve-3d]">
             <motion.div
-              className="tea-object"
+              className="tea-object relative w-full max-w-[610px]"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.35 }}
               transition={{ duration: 1.1, ease }}
-              className="relative w-full max-w-[610px]"
             >
               <div className="tea-depth-steam pointer-events-none absolute left-1/2 top-[8%] h-40 w-24 -translate-x-1/2 rounded-full bg-[#f5dfb1]/[0.04] blur-3xl" />
 
@@ -167,12 +166,11 @@ export default function TeaScene() {
 
               {/* memory card */}
               <motion.div
-                className="tea-memory"
+                className="tea-memory relative z-20 mt-[-18px] rounded-[4px] border border-[#d9a64c]/20 bg-[#0c0906]/88 p-7 shadow-[0_30px_110px_rgba(0,0,0,0.6)] backdrop-blur-xl sm:p-9"
                 initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
                 whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 viewport={{ once: true, amount: 0.35 }}
                 transition={{ duration: 0.9, delay: 0.35, ease }}
-                className="relative z-20 mt-[-18px] rounded-[4px] border border-[#d9a64c]/20 bg-[#0c0906]/88 p-7 shadow-[0_30px_110px_rgba(0,0,0,0.6)] backdrop-blur-xl sm:p-9"
               >
                 <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-[#e4b96a] to-transparent" />
 
@@ -199,12 +197,11 @@ export default function TeaScene() {
 
               {/* last-day reveal */}
               <motion.div
-                className="tea-last-day"
+                className="tea-last-day relative z-20 mt-8 border-l border-[#d9a64c]/35 pl-5 sm:pl-7"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.28 }}
                 transition={{ duration: 0.9, delay: 0.7, ease }}
-                className="relative z-20 mt-8 border-l border-[#d9a64c]/35 pl-5 sm:pl-7"
               >
                 <p className="font-sans text-[8px] uppercase tracking-[0.42em] text-[#d9a64c]/65">
                   The last day
@@ -222,12 +219,11 @@ export default function TeaScene() {
               </motion.div>
 
               <motion.div
-                className="tea-ending"
+                className="tea-ending mt-8 text-center sm:text-left"
                 initial={{ opacity: 0, scale: 0.96 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, amount: 0.22 }}
                 transition={{ duration: 1, delay: 1.05, ease }}
-                className="mt-8 text-center sm:text-left"
               >
                 <p className="font-display text-2xl leading-tight text-[#fff8e8] sm:text-3xl">
                   We never got that tea.
