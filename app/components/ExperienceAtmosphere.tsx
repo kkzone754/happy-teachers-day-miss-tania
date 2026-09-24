@@ -35,7 +35,8 @@ export default function ExperienceAtmosphere() {
         aria-hidden="true"
         style={{
           backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E\")",
+            "radial-gradient(circle at 18% 24%, rgba(228,185,106,0.18) 0 0.7px, transparent 0.9px), radial-gradient(circle at 72% 68%, rgba(255,248,232,0.12) 0 0.6px, transparent 0.9px), radial-gradient(circle at 42% 82%, rgba(228,185,106,0.10) 0 0.5px, transparent 0.8px)",
+          backgroundSize: "13px 17px, 19px 23px, 29px 31px",
         }}
       />
     </>
