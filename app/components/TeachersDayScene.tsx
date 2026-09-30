@@ -26,6 +26,8 @@ export default function TeachersDayScene() {
       const line = q(".td-line");
       const finalGlow = q(".td-final-glow");
       const finalWords = q(".td-final-word");
+      const finalLine = q(".td-final-line");
+      const finalNote = q(".td-final-note");
       const corner = q(".td-corner");
 
       gsap.set([date, title, name, message, signature], { opacity: 0, y: 55 });
@@ -34,6 +36,8 @@ export default function TeachersDayScene() {
       gsap.set(line, { scaleX: 0, transformOrigin: "50% 50%" });
       gsap.set(finalGlow, { opacity: 0, scale: 0.7 });
       gsap.set(finalWords, { opacity: 0, y: 35, letterSpacing: "0.08em" });
+      gsap.set(finalLine, { opacity: 0, scaleX: 0, transformOrigin: "50% 50%" });
+      gsap.set(finalNote, { opacity: 0, y: 18 });
       gsap.set(corner, { opacity: 0 });
 
       const tl = gsap.timeline({
@@ -126,6 +130,18 @@ export default function TeachersDayScene() {
           duration: 1.3,
           ease: "power3.out",
         })
+        .to(finalLine, {
+          opacity: 1,
+          scaleX: 1,
+          duration: 0.8,
+          ease: "power3.out",
+        }, "<0.3")
+        .to(finalNote, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+        }, "<0.15")
         .to(corner, { opacity: 1, duration: 0.5 }, "<0.2")
         .to([halo, ringA, ringB], {
           scale: 1.45,
@@ -212,6 +228,8 @@ export default function TeachersDayScene() {
       <div className="td-final-word pointer-events-none absolute left-1/2 top-[47%] z-40 -translate-x-1/2 -translate-y-1/2 text-center">
         <p className="font-sans text-[8px] uppercase tracking-[0.5em] text-[#d9a64c]/55">A chapter ends</p>
         <p className="mt-5 font-serif text-6xl tracking-[-0.04em] text-white/90">Thank you.</p>
+        <div className="td-final-line mx-auto mt-7 h-px w-24 bg-gradient-to-r from-transparent via-[#d9a64c]/70 to-transparent" />
+        <p className="td-final-note mt-5 font-sans text-[8px] uppercase tracking-[0.48em] text-white/30">For every moment that helped me become more confident.</p>
       </div>
     </section>
   );
