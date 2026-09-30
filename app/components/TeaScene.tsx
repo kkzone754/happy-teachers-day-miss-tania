@@ -27,10 +27,10 @@ export default function TeaScene() {
 
       gsap.set([hero, object, memory, lastDay, ending], { opacity: 0 });
       gsap.set(hero, { y: 45, rotateX: 8 });
-      gsap.set(object, { y: 35, scale: 0.82, rotateY: -10 });
+      gsap.set(object, { y: 28, scale: 0.82, rotateY: -10 });
       gsap.set(memory, { y: 45, scale: 0.94 });
-      gsap.set(lastDay, { y: 55, opacity: 0 });
-      gsap.set(ending, { y: 40, scale: 0.92 });
+      gsap.set(lastDay, { y: 32, opacity: 0 });
+      gsap.set(ending, { y: 34, scale: 0.92 });
 
       gsap.to(steam, { y: -45, x: 18, opacity: 0.65, duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut" });
 
@@ -46,14 +46,14 @@ export default function TeaScene() {
 
       timeline
         .to(hero, { y: -90, opacity: 0, scale: 1.08, rotateX: -5, duration: 0.55, ease: "power3.inOut" })
-        .to(object, { y: -45, scale: 1.08, rotateY: 7, duration: 0.5 }, "<")
+        .to(object, { y: -55, scale: 1.08, rotateY: 7, duration: 0.5 }, "<")
         .to(memory, { y: -40, opacity: 0.18, scale: 1.04, duration: 0.5 }, "<")
         .to(memory, { y: -120, opacity: 0, filter: "blur(10px)", duration: 0.65, ease: "power3.inOut" })
         .to(lastDay, { opacity: 1, y: 0, duration: 0.9, ease: "power4.out" }, "-=0.15")
-        .to(object, { scale: 1.16, rotateY: -4, y: -5, duration: 0.75 }, "<")
+        .to(object, { scale: 1.16, rotateY: -4, y: -18, duration: 0.75 }, "<")
         .to(lastDay, { y: -70, opacity: 0, duration: 0.75, ease: "power3.inOut" }, "+=0.25")
         .to(ending, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power4.out" }, "-=0.1")
-        .to(object, { scale: 1.3, opacity: 0.35, y: -20, duration: 1 }, "<");
+        .to(object, { scale: 1.3, opacity: 0.35, y: -32, duration: 1 }, "<");
     }, section);
 
     return () => ctx.revert();
@@ -95,7 +95,7 @@ export default function TeaScene() {
           </div>
 
           <div className="relative flex min-h-[540px] items-center justify-center [transform-style:preserve-3d]">
-            <motion.div className="tea-object relative -mt-16 w-full max-w-[610px]" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 1.1, ease }}>
+            <motion.div className="tea-object relative -mt-28 w-full max-w-[610px]" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 1.1, ease }}>
               <div className="tea-depth-steam pointer-events-none absolute left-1/2 top-[8%] h-40 w-24 -translate-x-1/2 rounded-full bg-[#f5dfb1]/[0.04] blur-3xl" />
               <div className="absolute left-1/2 top-[42%] h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#d9a64c]/10" />
               <div className="absolute left-1/2 top-[42%] h-[315px] w-[315px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#d9a64c]/[0.07]" />
@@ -114,13 +114,13 @@ export default function TeaScene() {
                 <p className="mt-4 font-display text-lg leading-7 text-[#f0d49a] sm:text-xl">“Bas aise hi... mera dil karta tha,<br />to aapke liye bhi le aata hun.”</p>
               </motion.div>
 
-              <motion.div className="tea-last-day relative z-20 mt-4 border-l border-[#d9a64c]/35 pl-5 sm:pl-7" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.28 }} transition={{ duration: 0.9, delay: 0.7, ease }}>
+              <motion.div className="tea-last-day relative z-20 mt-[-4px] border-l border-[#d9a64c]/35 pl-5 sm:pl-7" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.28 }} transition={{ duration: 0.9, delay: 0.7, ease }}>
                 <p className="font-sans text-[8px] uppercase tracking-[0.42em] text-[#d9a64c]/65">The last day</p>
                 <p className="mt-3 max-w-xl font-display text-xl leading-8 text-white/78 sm:text-2xl">You said we&apos;d sit by the stage<br className="hidden sm:block" />and have tea together.</p>
-                <p className="mt-3 max-w-xl font-sans text-sm leading-6 text-white/38">But the day moved too fast.<br />There was never enough time.</p>
+                <p className="mt-2 max-w-xl font-sans text-sm leading-6 text-white/38">But the day moved too fast.<br />There was never enough time.</p>
               </motion.div>
 
-              <motion.div className="tea-ending mt-5 text-center sm:text-left" initial={{ opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.22 }} transition={{ duration: 1, delay: 1.05, ease }}>
+              <motion.div className="tea-ending mt-3 text-center sm:text-left" initial={{ opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.22 }} transition={{ duration: 1, delay: 1.05, ease }}>
                 <p className="font-display text-2xl leading-tight text-[#fff8e8] sm:text-3xl">We never got that tea.</p>
                 <p className="mt-2 font-sans text-[9px] uppercase tracking-[0.3em] text-[#d9a64c]/55">And somehow, I still remember it.</p>
               </motion.div>
