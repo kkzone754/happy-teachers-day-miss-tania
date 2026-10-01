@@ -29,6 +29,7 @@ export default function TeachersDayScene() {
       const finalLine = q(".td-final-line");
       const finalNote = q(".td-final-note");
       const corner = q(".td-corner");
+      const finalFade = q(".td-final-fade");
 
       gsap.set([date, title, name, message, signature], { opacity: 0, y: 55 });
       gsap.set(halo, { opacity: 0, scale: 0.45 });
@@ -39,6 +40,7 @@ export default function TeachersDayScene() {
       gsap.set(finalLine, { opacity: 0, scaleX: 0, transformOrigin: "50% 50%" });
       gsap.set(finalNote, { opacity: 0, y: 18 });
       gsap.set(corner, { opacity: 0 });
+      gsap.set(finalFade, { opacity: 0 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -148,7 +150,12 @@ export default function TeachersDayScene() {
           opacity: 0.32,
           duration: 1.4,
           ease: "power2.inOut",
-        }, "<");
+        }, "<")
+        .to(finalFade, {
+          opacity: 1,
+          duration: 2.2,
+          ease: "power2.in",
+        });
 
       gsap.to(light, {
         x: "20vw",
@@ -180,6 +187,7 @@ export default function TeachersDayScene() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(217,166,76,0.16),transparent_30%),linear-gradient(180deg,#050403_0%,#090705_50%,#020201_100%)]" />
       <div className="td-light pointer-events-none absolute -left-[22vw] top-[10%] h-[72vh] w-[44vw] rotate-[-14deg] bg-[linear-gradient(90deg,transparent,rgba(217,166,76,0.17),transparent)] blur-3xl" />
       <div className="td-final-glow pointer-events-none absolute left-1/2 top-[45%] h-[62vh] w-[62vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#d9a64c]/[0.08] blur-3xl" />
+      <div className="td-final-fade pointer-events-none absolute inset-0 z-50 bg-black" />
       <div className="pointer-events-none absolute inset-[6%] border border-[#d9a64c]/[0.07]" />
       <div className="td-corner pointer-events-none absolute left-[7%] top-[7%] z-40 font-sans text-[8px] uppercase tracking-[0.45em] text-white/25">A small tribute · 2026</div>
       <div className="td-corner pointer-events-none absolute right-[7%] top-[7%] z-40 font-sans text-[8px] uppercase tracking-[0.45em] text-white/25">For Miss Tania</div>
