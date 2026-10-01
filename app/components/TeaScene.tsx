@@ -27,10 +27,10 @@ export default function TeaScene() {
 
       gsap.set([hero, object, memory, lastDay, ending], { opacity: 0 });
       gsap.set(hero, { y: 45, rotateX: 8 });
-      gsap.set(object, { y: 28, scale: 0.82, rotateY: -10 });
-      gsap.set(memory, { y: 45, scale: 0.94 });
-      gsap.set(lastDay, { y: 32, opacity: 0 });
-      gsap.set(ending, { y: 34, scale: 0.92 });
+      gsap.set(object, { y: 18, scale: 0.82, rotateY: -10 });
+      gsap.set(memory, { y: 35, scale: 0.94 });
+      gsap.set(lastDay, { y: 24, opacity: 0 });
+      gsap.set(ending, { y: 28, scale: 0.92 });
 
       gsap.to(steam, { y: -45, x: 18, opacity: 0.65, duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut" });
 
@@ -46,14 +46,14 @@ export default function TeaScene() {
 
       timeline
         .to(hero, { y: -90, opacity: 0, scale: 1.08, rotateX: -5, duration: 0.55, ease: "power3.inOut" })
-        .to(object, { y: -55, scale: 1.08, rotateY: 7, duration: 0.5 }, "<")
-        .to(memory, { y: -40, opacity: 0.18, scale: 1.04, duration: 0.5 }, "<")
-        .to(memory, { y: -120, opacity: 0, filter: "blur(10px)", duration: 0.65, ease: "power3.inOut" })
+        .to(object, { y: -48, scale: 1.05, rotateY: 7, duration: 0.5 }, "<")
+        .to(memory, { y: -35, opacity: 0.18, scale: 1.04, duration: 0.5 }, "<")
+        .to(memory, { y: -110, opacity: 0, filter: "blur(10px)", duration: 0.65, ease: "power3.inOut" })
         .to(lastDay, { opacity: 1, y: 0, duration: 0.9, ease: "power4.out" }, "-=0.15")
-        .to(object, { scale: 1.16, rotateY: -4, y: -18, duration: 0.75 }, "<")
-        .to(lastDay, { y: -70, opacity: 0, duration: 0.75, ease: "power3.inOut" }, "+=0.25")
+        .to(object, { scale: 1.12, rotateY: -4, y: -8, duration: 0.75 }, "<")
+        .to(lastDay, { y: -55, opacity: 0, duration: 0.75, ease: "power3.inOut" }, "+=0.25")
         .to(ending, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power4.out" }, "-=0.1")
-        .to(object, { scale: 1.3, opacity: 0.35, y: -32, duration: 1 }, "<");
+        .to(object, { scale: 1.24, opacity: 0.35, y: -24, duration: 1 }, "<");
     }, section);
 
     return () => ctx.revert();
@@ -95,17 +95,17 @@ export default function TeaScene() {
           </div>
 
           <div className="relative flex min-h-[540px] items-center justify-center [transform-style:preserve-3d]">
-            <motion.div className="tea-object relative -mt-28 w-full max-w-[610px]" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 1.1, ease }}>
-              <div className="tea-depth-steam pointer-events-none absolute left-1/2 top-[8%] h-40 w-24 -translate-x-1/2 rounded-full bg-[#f5dfb1]/[0.04] blur-3xl" />
-              <div className="absolute left-1/2 top-[42%] h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#d9a64c]/10" />
-              <div className="absolute left-1/2 top-[42%] h-[315px] w-[315px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#d9a64c]/[0.07]" />
-              <div className="absolute left-1/2 top-[42%] h-[2px] w-[440px] -translate-x-1/2 bg-gradient-to-r from-transparent via-[#d9a64c]/20 to-transparent" />
+            <motion.div className="tea-object relative -mt-40 w-full max-w-[610px]" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 1.1, ease }}>
+              <div className="tea-depth-steam pointer-events-none absolute left-1/2 top-[6%] h-40 w-24 -translate-x-1/2 rounded-full bg-[#f5dfb1]/[0.04] blur-3xl" />
+              <div className="absolute left-1/2 top-[39%] h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#d9a64c]/10" />
+              <div className="absolute left-1/2 top-[39%] h-[315px] w-[315px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#d9a64c]/[0.07]" />
+              <div className="absolute left-1/2 top-[39%] h-[2px] w-[440px] -translate-x-1/2 bg-gradient-to-r from-transparent via-[#d9a64c]/20 to-transparent" />
               <div className="relative z-10 flex items-end justify-center gap-7 sm:gap-12">
                 <TeaCup delay={0} label="yours" />
                 <TeaCup delay={0.65} label="mine" />
               </div>
 
-              <motion.div className="tea-memory relative z-20 mt-[-18px] rounded-[4px] border border-[#d9a64c]/20 bg-[#0c0906]/88 p-7 shadow-[0_30px_110px_rgba(0,0,0,0.6)] backdrop-blur-xl sm:p-9" initial={{ opacity: 0, y: 28, filter: "blur(8px)" }} whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 0.9, delay: 0.35, ease }}>
+              <motion.div className="tea-memory relative z-20 mt-[-24px] rounded-[4px] border border-[#d9a64c]/20 bg-[#0c0906]/88 p-7 shadow-[0_30px_110px_rgba(0,0,0,0.6)] backdrop-blur-xl sm:p-9" initial={{ opacity: 0, y: 28, filter: "blur(8px)" }} whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 0.9, delay: 0.35, ease }}>
                 <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-[#e4b96a] to-transparent" />
                 <p className="font-sans text-[8px] uppercase tracking-[0.42em] text-[#d9a64c]/60">You asked me once</p>
                 <p className="mt-5 font-display text-[clamp(1.35rem,2.2vw,2rem)] leading-[1.1] text-[#fff8e8]">“Tum har waqt mujhe chai kyun pilate ho?”</p>
@@ -114,7 +114,7 @@ export default function TeaScene() {
                 <p className="mt-4 font-display text-lg leading-7 text-[#f0d49a] sm:text-xl">“Bas aise hi... mera dil karta tha,<br />to aapke liye bhi le aata hun.”</p>
               </motion.div>
 
-              <motion.div className="tea-last-day relative z-20 mt-[-4px] border-l border-[#d9a64c]/35 pl-5 sm:pl-7" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.28 }} transition={{ duration: 0.9, delay: 0.7, ease }}>
+              <motion.div className="tea-last-day relative z-20 mt-[-8px] border-l border-[#d9a64c]/35 pl-5 sm:pl-7" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.28 }} transition={{ duration: 0.9, delay: 0.7, ease }}>
                 <p className="font-sans text-[8px] uppercase tracking-[0.42em] text-[#d9a64c]/65">The last day</p>
                 <p className="mt-3 max-w-xl font-display text-xl leading-8 text-white/78 sm:text-2xl">You said we&apos;d sit by the stage<br className="hidden sm:block" />and have tea together.</p>
                 <p className="mt-2 max-w-xl font-sans text-sm leading-6 text-white/38">But the day moved too fast.<br />There was never enough time.</p>
@@ -141,11 +141,14 @@ export default function TeaScene() {
 function TeaCup({ delay, label }: { delay: number; label: string }) {
   return (
     <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay, duration: 1, ease: "easeOut" }} className="relative h-52 w-44 sm:h-60 sm:w-52">
-      <div className="absolute left-1/2 top-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#d9a64c]/25 bg-gradient-to-br from-[#f0d49a]/10 to-transparent shadow-[0_0_80px_rgba(217,166,76,0.12)] sm:h-40 sm:w-40" />
-      <div className="absolute left-1/2 top-[48%] h-20 w-24 -translate-x-1/2 rounded-b-[2rem] rounded-t-[0.9rem] border border-[#e4b96a]/35 bg-[#0f0a06]/90 shadow-[0_20px_60px_rgba(0,0,0,0.55)] sm:h-24 sm:w-28" />
-      <div className="absolute left-1/2 top-[43%] h-5 w-28 -translate-x-1/2 rounded-full border border-[#e4b96a]/35 bg-[#050403] sm:w-32" />
-      <div className="absolute left-1/2 top-[42%] h-2 w-20 -translate-x-1/2 rounded-full bg-[#d9a64c]/20 blur-sm sm:w-24" />
-      <div className="absolute left-[69%] top-[51%] h-11 w-8 rounded-r-full border border-l-0 border-[#e4b96a]/30" />
+      <div className="absolute left-1/2 top-[76%] h-6 w-32 -translate-x-1/2 rounded-[50%] border border-[#d9a64c]/18 bg-[#080503]/80 shadow-[0_18px_35px_rgba(0,0,0,0.65)] sm:w-36" />
+      <div className="absolute left-1/2 top-[48%] h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#e4b96a]/18 bg-[radial-gradient(circle_at_35%_30%,rgba(255,245,214,0.16),transparent_34%),linear-gradient(145deg,rgba(240,212,154,0.12),rgba(20,13,7,0.08))] shadow-[0_0_80px_rgba(217,166,76,0.12)] sm:h-40 sm:w-40" />
+      <div className="absolute left-1/2 top-[50%] h-20 w-24 -translate-x-1/2 rounded-b-[2rem] rounded-t-[0.9rem] border border-[#e4b96a]/40 bg-[linear-gradient(100deg,rgba(255,244,214,0.12),rgba(15,10,6,0.96)_45%,rgba(225,190,118,0.10))] shadow-[inset_8px_0_18px_rgba(255,236,186,0.06),inset_-10px_-8px_24px_rgba(0,0,0,0.5),0_22px_60px_rgba(0,0,0,0.58)] sm:h-24 sm:w-28" />
+      <div className="absolute left-1/2 top-[43%] h-5 w-28 -translate-x-1/2 rounded-full border border-[#e4b96a]/45 bg-[#090603] shadow-[inset_0_2px_4px_rgba(255,231,177,0.10),0_5px_12px_rgba(0,0,0,0.5)] sm:w-32" />
+      <div className="absolute left-1/2 top-[43.5%] h-2.5 w-20 -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse,rgba(124,74,29,0.72),rgba(35,18,7,0.95))] blur-[0.2px] sm:w-24" />
+      <div className="absolute left-[70%] top-[51%] h-11 w-9 rounded-r-[50%] border border-l-0 border-[#e4b96a]/38 bg-[radial-gradient(ellipse_at_right,transparent_40%,rgba(228,185,106,0.04))]" />
+      <div className="absolute left-[32%] top-[53%] h-12 w-2 rotate-[14deg] rounded-full bg-white/[0.055] blur-sm" />
+      <div className="pointer-events-none absolute left-[40%] top-[18%] h-20 w-6 rounded-full bg-[#f5dfb1]/[0.055] blur-xl" />
       <p className="absolute bottom-0 left-1/2 -translate-x-1/2 font-sans text-[8px] uppercase tracking-[0.38em] text-white/25">{label}</p>
     </motion.div>
   );
