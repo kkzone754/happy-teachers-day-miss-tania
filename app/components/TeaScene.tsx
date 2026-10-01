@@ -63,6 +63,12 @@ export default function TeaScene() {
     <section ref={sectionRef} className="relative h-screen overflow-hidden bg-[#070504] px-6 py-20 text-[#fff8e8] sm:px-10" style={{ perspective: "1500px" }}>
       <div className="pointer-events-none absolute inset-0">
         <div className="editorial-grid absolute inset-0 opacity-25" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.13] mix-blend-screen"
+          style={{ backgroundImage: "url('/backgrounds/chapter-05-stage-atmosphere.svg')" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#070504]/70 via-[#070504]/55 to-[#070504]/90" />
         <motion.div
           className="absolute left-[72%] top-[48%] h-[46vw] w-[46vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#d9a64c]/[0.07] blur-[130px]"
           animate={{ scale: [1, 1.16, 1], opacity: [0.38, 0.72, 0.38] }}
