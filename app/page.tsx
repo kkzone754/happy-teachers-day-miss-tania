@@ -20,28 +20,40 @@ export default function Home() {
   const [started, setStarted] = useState(false);
 
   const startExperience = () => {
+    const audio = document.getElementById(
+      "experience-background-audio"
+    ) as HTMLAudioElement | null;
+
+    if (audio) {
+      audio.volume = 0.18;
+      void audio.play().catch(() => {});
+    }
+
     setStarted(true);
   };
 
-  if (!started) {
-    return <Intro onStart={startExperience} />;
-  }
-
   return (
-    <main className="relative bg-[#050403]">
+    <>
       <ExperienceAudio started={started} />
-      <ExperienceAtmosphere />
-      <ExperienceDepth />
-      <ExperienceParticles />
-      <CinematicTransitions />
-      <StoryScene />
-      <ConfidenceScene />
-      <GuidanceScene />
-      <AladdinScene />
-      <TeaScene />
-      <SongScene />
-      <StayedScene />
-      <TeachersDayScene />
-    </main>
+
+      {!started ? (
+        <Intro onStart={startExperience} />
+      ) : (
+        <main className="relative bg-[#050403]">
+          <ExperienceAtmosphere />
+          <ExperienceDepth />
+          <ExperienceParticles />
+          <CinematicTransitions />
+          <StoryScene />
+          <ConfidenceScene />
+          <GuidanceScene />
+          <AladdinScene />
+          <TeaScene />
+          <SongScene />
+          <StayedScene />
+          <TeachersDayScene />
+        </main>
+      )}
+    </>
   );
 }
