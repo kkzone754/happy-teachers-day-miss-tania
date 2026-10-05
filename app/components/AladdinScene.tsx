@@ -8,17 +8,17 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function AladdinScene() {
   const sectionRef = useRef<HTMLElement>(null);
+  const voicePlayedRef = useRef(false);
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
-
     if (!section) return;
 
-    const ctx = gsap.context(() => {
-      // -------------------------------------------------
-      // INITIAL STATE
-      // -------------------------------------------------
+    const voice = section.querySelector(
+      ".aladdin-voice-audio"
+    ) as HTMLAudioElement | null;
 
+    const ctx = gsap.context(() => {
       gsap.set(
         [
           ".aladdin-kicker",
@@ -31,30 +31,22 @@ export default function AladdinScene() {
           ".aladdin-final",
           ".aladdin-line",
         ],
-        {
-          opacity: 0,
-        }
+        { opacity: 0 }
       );
 
-      gsap.set(".aladdin-stage-image", {
-        scale: 1.04,
-      });
+      gsap.set(".aladdin-stage-image", { scale: 1.04 });
+      gsap.set(".aladdin-stage-glow", { opacity: 0.35 });
+      gsap.set(".aladdin-particle", { opacity: 0 });
 
-      gsap.set(".aladdin-stage-glow", {
-        opacity: 0.35,
-      });
-
-      gsap.set(".aladdin-particle", {
-        opacity: 0,
-      });
-
-      gsap.set([".aladdin-depth-glow", ".aladdin-beam-left", ".aladdin-beam-right", ".aladdin-stage-frame"], {
-        opacity: 0,
-      });
-
-      // -------------------------------------------------
-      // BACKGROUND MOVEMENT
-      // -------------------------------------------------
+      gsap.set(
+        [
+          ".aladdin-depth-glow",
+          ".aladdin-beam-left",
+          ".aladdin-beam-right",
+          ".aladdin-stage-frame",
+        ],
+        { opacity: 0 }
+      );
 
       gsap.to(".aladdin-stage-image", {
         scale: 1.1,
@@ -71,13 +63,35 @@ export default function AladdinScene() {
         ease: "sine.inOut",
       });
 
-      gsap.to(".aladdin-beam-left", { x: 45, rotate: -9, opacity: 0.75, duration: 6, repeat: -1, yoyo: true, ease: "sine.inOut" });
-      gsap.to(".aladdin-beam-right", { x: -45, rotate: 9, opacity: 0.7, duration: 7, repeat: -1, yoyo: true, ease: "sine.inOut" });
-      gsap.to(".aladdin-depth-glow", { x: 35, y: -20, scale: 1.12, duration: 7, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.to(".aladdin-beam-left", {
+        x: 45,
+        rotate: -9,
+        opacity: 0.75,
+        duration: 6,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
 
-      // -------------------------------------------------
-      // FLOATING DUST
-      // -------------------------------------------------
+      gsap.to(".aladdin-beam-right", {
+        x: -45,
+        rotate: 9,
+        opacity: 0.7,
+        duration: 7,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+
+      gsap.to(".aladdin-depth-glow", {
+        x: 35,
+        y: -20,
+        scale: 1.12,
+        duration: 7,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
 
       gsap.to(".aladdin-particle", {
         opacity: "random(0.15, 0.55)",
@@ -90,14 +104,8 @@ export default function AladdinScene() {
         stagger: 0.25,
       });
 
-      // -------------------------------------------------
-      // INTRO
-      // -------------------------------------------------
-
       const intro = gsap.timeline({
-        defaults: {
-          ease: "power3.out",
-        },
+        defaults: { ease: "power3.out" },
       });
 
       intro
@@ -135,10 +143,6 @@ export default function AladdinScene() {
           "-=0.35"
         );
 
-      // -------------------------------------------------
-      // SCROLL STORY
-      // -------------------------------------------------
-
       const story = gsap.timeline({
         scrollTrigger: {
           trigger: section,
@@ -147,10 +151,33 @@ export default function AladdinScene() {
           scrub: 1,
           pin: true,
           anticipatePin: 1,
+          onUpdate: (self) => {
+            if (!voice || voicePlayedRef.current) return;
+
+            const roleVoice = section.querySelector(
+              ".role-voice"
+            ) as HTMLElement | null;
+
+            if (!roleVoice) return;
+
+            const opacity = Number.parseFloat(
+              window.getComputedStyle(roleVoice).opacity
+            );
+
+            if (opacity > 0.55) {
+              voicePlayedRef.current = true;
+              voice.currentTime = 0;
+              window.dispatchEvent(new Event("experience:duck-music"));
+
+              void voice.play().catch(() => {
+                voicePlayedRef.current = false;
+                window.dispatchEvent(new Event("experience:restore-music"));
+              });
+            }
+          },
         },
       });
 
-      // INTRO LEAVES
       story
         .to(".aladdin-kicker", {
           opacity: 0,
@@ -185,19 +212,23 @@ export default function AladdinScene() {
           },
           "<"
         )
-
-        // -------------------------------------------------
-        // EMPTY STAGE
-        // -------------------------------------------------
-
-        .to(".aladdin-stage-frame", { opacity: 1, scale: 1, duration: 0.8, ease: "power3.out" })
-        .to(".aladdin-depth-glow", { opacity: 1, scale: 1, duration: 0.8 }, "<")
+        .to(".aladdin-stage-frame", {
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          ease: "power3.out",
+        })
+        .to(
+          ".aladdin-depth-glow",
+          { opacity: 1, scale: 1, duration: 0.8 },
+          "<"
+        )
         .to(".aladdin-beam-left", { opacity: 1, duration: 0.6 }, "<")
         .to(".aladdin-beam-right", { opacity: 1, duration: 0.6 }, "<")
-        .to(".aladdin-stage-glow", {
-          opacity: 0.9,
-          duration: 0.5,
-        })
+        .to(
+          ".aladdin-stage-glow",
+          { opacity: 0.9, duration: 0.5 }
+        )
         .to(
           ".role-master",
           {
@@ -207,21 +238,11 @@ export default function AladdinScene() {
           },
           "+=0.15"
         )
-
-        // -------------------------------------------------
-        // MASTER JI
-        // -------------------------------------------------
-
         .to(".role-master", {
           opacity: 0,
           y: -35,
           duration: 0.55,
         })
-
-        // -------------------------------------------------
-        // UNKNOWN VOICE
-        // -------------------------------------------------
-
         .to(
           ".role-voice",
           {
@@ -231,17 +252,11 @@ export default function AladdinScene() {
           },
           "-=0.1"
         )
-
         .to(".role-voice", {
           opacity: 0,
           y: -35,
           duration: 0.55,
         })
-
-        // -------------------------------------------------
-        // CLIMAX
-        // -------------------------------------------------
-
         .to(
           ".role-climax",
           {
@@ -261,17 +276,11 @@ export default function AladdinScene() {
           },
           "<"
         )
-
         .to(".role-climax", {
           opacity: 0,
           y: -25,
           duration: 0.5,
         })
-
-        // -------------------------------------------------
-        // FINAL EMOTIONAL LINE
-        // -------------------------------------------------
-
         .to(
           ".aladdin-final",
           {
@@ -293,6 +302,21 @@ export default function AladdinScene() {
         );
     }, section);
 
+    if (voice) {
+      const restoreMusic = () => {
+        window.dispatchEvent(new Event("experience:restore-music"));
+      };
+
+      voice.addEventListener("ended", restoreMusic);
+
+      return () => {
+        voice.pause();
+        voice.currentTime = 0;
+        voice.removeEventListener("ended", restoreMusic);
+        ctx.revert();
+      };
+    }
+
     return () => ctx.revert();
   }, []);
 
@@ -302,19 +326,18 @@ export default function AladdinScene() {
       className="relative min-h-screen overflow-hidden bg-black text-[#fff7e6]"
       style={{ perspective: "1500px" }}
     >
-      {/* =================================================
-          REAL STAGE IMAGE
-      ================================================== */}
-      <div
-        className="aladdin-stage-image absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/aladdin-stage.jpg')",
-        }}
+      <audio
+        className="aladdin-voice-audio"
+        src="/aladdin-voice.mp3"
+        preload="auto"
+        aria-hidden="true"
       />
 
-      {/* =================================================
-          DARK CINEMATIC OVERLAY
-      ================================================== */}
+      <div
+        className="aladdin-stage-image absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/aladdin-stage.jpg')" }}
+      />
+
       <div className="aladdin-depth-glow pointer-events-none absolute left-1/2 top-[38%] z-[2] h-[60vh] w-[55vw] -translate-x-1/2 rounded-full bg-amber-300/[0.055] blur-[100px]" />
       <div className="aladdin-stage-frame pointer-events-none absolute inset-[5%] z-[3] rounded-[4px] border border-amber-200/[0.08] shadow-[inset_0_0_100px_rgba(228,185,106,0.025)]" />
 
@@ -324,25 +347,11 @@ export default function AladdinScene() {
       <div className="pointer-events-none absolute left-0 top-0 h-full w-[17%] bg-gradient-to-r from-[#050205] via-[#170b12]/90 to-transparent" />
       <div className="pointer-events-none absolute right-0 top-0 h-full w-[17%] bg-gradient-to-l from-[#050205] via-[#170b12]/90 to-transparent" />
 
-      {/* =================================================
-          WARM STAGE LIGHT
-      ================================================== */}
-
-      <div
-        className="aladdin-stage-glow pointer-events-none absolute left-1/2 top-[42%] h-[55vh] w-[65vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300/20 blur-[90px]"
-      />
-
-      {/* =================================================
-          GOLDEN LIGHT BEAMS
-      ================================================== */}
+      <div className="aladdin-stage-glow pointer-events-none absolute left-1/2 top-[42%] h-[55vh] w-[65vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300/20 blur-[90px]" />
 
       <div className="aladdin-beam-left pointer-events-none absolute left-[34%] top-0 h-[78%] w-[13%] -skew-x-[12deg] bg-gradient-to-b from-amber-100/10 via-amber-300/10 to-transparent blur-2xl" />
 
       <div className="aladdin-beam-right pointer-events-none absolute right-[34%] top-0 h-[78%] w-[13%] skew-x-[12deg] bg-gradient-to-b from-amber-100/10 via-amber-300/10 to-transparent blur-2xl" />
-
-      {/* =================================================
-          DUST PARTICLES
-      ================================================== */}
 
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         {Array.from({ length: 18 }).map((_, index) => (
@@ -357,58 +366,40 @@ export default function AladdinScene() {
         ))}
       </div>
 
-      {/* =================================================
-          CONTENT
-      ================================================== */}
-
-      <div className="relative z-10 flex min-h-screen items-center justify-center px-6 text-center" style={{ transformStyle: "preserve-3d" }}>
+      <div
+        className="relative z-10 flex min-h-screen items-center justify-center px-6 text-center"
+        style={{ transformStyle: "preserve-3d" }}
+      >
         <div className="w-full max-w-4xl">
-
-          {/* KICKER */}
-
           <p className="aladdin-kicker text-[10px] uppercase tracking-[0.45em] text-amber-200/75 sm:text-xs">
             One unforgettable memory
           </p>
-
-          {/* TITLE */}
 
           <h2 className="aladdin-title mt-4 text-6xl font-light tracking-[-0.04em] text-[#fff4d6] drop-shadow-[0_4px_30px_rgba(0,0,0,0.8)] sm:text-8xl md:text-9xl">
             Aladdin
           </h2>
 
-          {/* LOCATION */}
-
           <p className="aladdin-location mt-5 text-[10px] uppercase tracking-[0.28em] text-white/70 sm:text-xs">
             Arts Council of Pakistan · Karachi
           </p>
 
-          {/* INTRO */}
-
           <div className="aladdin-intro mx-auto mt-10 max-w-xl">
             <div className="mx-auto mb-5 h-px w-10 bg-amber-300/50" />
-
             <p className="text-sm uppercase tracking-[0.3em] text-white/65 sm:text-base">
               And then came
             </p>
-
             <p className="mt-2 font-serif text-3xl text-amber-100 sm:text-5xl">
               the stage.
             </p>
           </div>
 
-          {/* =================================================
-              ROLE 1
-          ================================================== */}
-
           <div className="role-master absolute left-1/2 top-1/2 w-[90%] -translate-x-1/2 -translate-y-1/2 sm:w-full">
             <p className="text-[10px] uppercase tracking-[0.45em] text-amber-200/60">
               My role
             </p>
-
             <h3 className="mt-4 font-serif text-4xl text-white sm:text-6xl md:text-7xl">
               Master Ji
             </h3>
-
             <p className="mx-auto mt-5 max-w-md text-sm leading-7 text-white/60 sm:text-base">
               My first time stepping into a character
               <br className="hidden sm:block" />
@@ -416,19 +407,13 @@ export default function AladdinScene() {
             </p>
           </div>
 
-          {/* =================================================
-              ROLE 2
-          ================================================== */}
-
           <div className="role-voice absolute left-1/2 top-1/2 w-[90%] -translate-x-1/2 -translate-y-1/2 sm:w-full">
             <p className="text-[10px] uppercase tracking-[0.45em] text-amber-200/60">
               And then...
             </p>
-
             <h3 className="mt-4 text-3xl font-medium tracking-tight text-white sm:text-5xl md:text-6xl">
               Anjaani Khofnaak Awaaz
             </h3>
-
             <p className="mx-auto mt-5 max-w-lg text-sm leading-7 text-white/60 sm:text-base">
               A strange, frightening voice...
               <br />
@@ -436,41 +421,28 @@ export default function AladdinScene() {
             </p>
           </div>
 
-          {/* =================================================
-              CLIMAX
-          ================================================== */}
-
           <div className="role-climax absolute left-1/2 top-1/2 w-[90%] -translate-x-1/2 -translate-y-1/2 sm:w-full">
             <p className="text-[10px] uppercase tracking-[0.5em] text-amber-200/65">
               The moment
             </p>
-
             <h3 className="mt-5 font-serif text-4xl leading-tight text-amber-50 sm:text-6xl md:text-7xl">
               I stopped being afraid.
             </h3>
           </div>
 
-          {/* =================================================
-              FINAL
-          ================================================== */}
-
           <div className="aladdin-final absolute left-1/2 top-1/2 w-[90%] -translate-x-1/2 -translate-y-1/2 sm:w-full">
             <p className="text-[10px] uppercase tracking-[0.45em] text-amber-200/65">
               Looking back
             </p>
-
             <h3 className="mx-auto mt-5 max-w-3xl font-serif text-3xl leading-tight text-white sm:text-5xl md:text-6xl">
               I didn&apos;t know I could do it.
             </h3>
-
             <div className="aladdin-line mx-auto mt-7 h-px w-0 bg-amber-300" />
-
             <p className="mx-auto mt-7 max-w-xl text-sm leading-7 text-white/60 sm:text-base">
               But somewhere between the rehearsals,
               <br className="hidden sm:block" />
               the stage lights and the performance...
             </p>
-
             <p className="mt-5 text-base text-amber-100 sm:text-lg">
               I just did it.
             </p>
@@ -478,15 +450,15 @@ export default function AladdinScene() {
         </div>
       </div>
 
-      {/* =================================================
-          BOTTOM CINEMATIC EDGE
-      ================================================== */}
-
       <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent" />
 
       <div className="pointer-events-none absolute bottom-6 left-1/2 z-30 -translate-x-1/2 text-center">
-        <p className="font-sans text-[8px] uppercase tracking-[0.42em] text-white/25">scroll to continue</p>
-        <div className="mx-auto mt-2 h-7 w-4 rounded-full border border-[#d9a64c]/45"><div className="mx-auto mt-1.5 h-1.5 w-0.5 rounded-full bg-[#d9a64c]/80" /></div>
+        <p className="font-sans text-[8px] uppercase tracking-[0.42em] text-white/25">
+          scroll to continue
+        </p>
+        <div className="mx-auto mt-2 h-7 w-4 rounded-full border border-[#d9a64c]/45">
+          <div className="mx-auto mt-1.5 h-1.5 w-0.5 rounded-full bg-[#d9a64c]/80" />
+        </div>
       </div>
     </section>
   );
