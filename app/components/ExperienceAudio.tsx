@@ -14,11 +14,11 @@ export default function ExperienceAudio({ started }: ExperienceAudioProps) {
     if (!audio) return;
 
     const handleDuck = () => {
-      audio.volume = 0.10;
+      audio.volume = 0.16;
     };
 
     const handleRestore = () => {
-      audio.volume = 0.32;
+      audio.volume = 0.50;
     };
 
     window.addEventListener("experience:duck-music", handleDuck);
@@ -33,7 +33,7 @@ export default function ExperienceAudio({ started }: ExperienceAudioProps) {
   useEffect(() => {
     if (started) return;
     const audio = audioRef.current;
-    if (audio) audio.volume = 0.32;
+    if (audio) audio.volume = 0.50;
   }, [started]);
 
   return (
