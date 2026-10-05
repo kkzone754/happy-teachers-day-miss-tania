@@ -345,7 +345,7 @@ export default function AladdinScene() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_28%,rgba(0,0,0,0.2)_58%,rgba(0,0,0,0.78)_100%)]" />
 
       <div className="pointer-events-none absolute left-0 top-0 h-full w-[17%] bg-gradient-to-r from-[#050205] via-[#170b12]/90 to-transparent" />
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-[17%] bg-gradient-to-l from-[#050205] via-[#170b12]/90 to-transparent" />
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-[17%] 5 from-[#050205] via-[#170b12]/90 to-transparent" />
 
       <div className="aladdin-stage-glow pointer-events-none absolute left-1/2 top-[42%] h-[55vh] w-[65vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300/20 blur-[90px]" />
 
