@@ -14,7 +14,7 @@ export default function ExperienceAudio({ started }: ExperienceAudioProps) {
     if (!audio) return;
 
     const handleDuck = () => {
-      audio.volume = 0.08;
+      audio.volume = 0.07;
     };
 
     const handleRestore = () => {
@@ -31,25 +31,14 @@ export default function ExperienceAudio({ started }: ExperienceAudioProps) {
   }, []);
 
   useEffect(() => {
+    if (started) return;
     const audio = audioRef.current;
-    if (!audio || !started) return;
-
-    audio.volume = 0.18;
-    audio.loop = true;
-
-    const play = async () => {
-      try {
-        await audio.play();
-      } catch {
-        // Browser autoplay policy may still block playback.
-      }
-    };
-
-    void play();
+    if (audio) audio.volume = 0.18;
   }, [started]);
 
   return (
     <audio
+      id="experience-background-audio"
       ref={audioRef}
       src="/background.mp3"
       preload="auto"
