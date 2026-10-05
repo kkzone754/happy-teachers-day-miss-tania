@@ -14,16 +14,22 @@ import ExperienceAtmosphere from "./components/ExperienceAtmosphere";
 import ExperienceDepth from "./components/ExperienceDepth";
 import ExperienceParticles from "./components/ExperienceParticles";
 import CinematicTransitions from "./components/CinematicTransitions";
+import ExperienceAudio from "./components/ExperienceAudio";
 
 export default function Home() {
   const [started, setStarted] = useState(false);
 
+  const startExperience = () => {
+    setStarted(true);
+  };
+
   if (!started) {
-    return <Intro onStart={() => setStarted(true)} />;
+    return <Intro onStart={startExperience} />;
   }
 
   return (
     <main className="relative bg-[#050403]">
+      <ExperienceAudio started={started} />
       <ExperienceAtmosphere />
       <ExperienceDepth />
       <ExperienceParticles />
